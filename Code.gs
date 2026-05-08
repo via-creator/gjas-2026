@@ -10,7 +10,8 @@ const FOLDER_IDS = {
 
 function doPost(e) {
   try {
-    var data = JSON.parse(e.postData.contents);
+    var raw  = e.postData.contents || e.postData.getDataAsString();
+    var data = JSON.parse(raw);
     var site = data.site;
     var ts   = new Date().toLocaleString('ko-KR', {timeZone:'Asia/Seoul'});
 
