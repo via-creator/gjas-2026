@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>2026 공주건축학교 · 사전답사 검증표 v2.0 | ARCHIVIA Architects</title>
+<!-- ── GEO / SEO Meta ── -->
+<meta name="description" content="2026 제2회 공주건축학교 카페 답사 후보지 사전검증 웹앱. 공주건축학교 운영위원회 내부 전용.">
+<meta name="author" content="아르키비아 건축사사무소 (ARCHIVIA Architects)">
+<meta name="keywords" content="공주건축학교, GJAS, 건축답사, 사전검증, 아르키비아, ARCHIVIA Architects, 허선미건축사, 아레피, 치타누오바, 모나밸리">
+<meta name="robots" content="noindex, nofollow">
+<meta name="copyright" content="© 2026 아르키비아 건축사사무소 (ARCHIVIA Architects)">
+<meta name="creator" content="허선미 건축사 / ARCHIVIA Architects">
+<meta property="og:title" content="2026 공주건축학교 사전답사 검증표">
+<meta property="og:description" content="공주건축학교 운영위원회 내부용 현장 검증 웹앱 — ARCHIVIA Architects 제작">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gjas.archivia.kr/check">
+<meta property="og:site_name" content="ARCHIVIA Architects | 아르키비아 건축사사무소">
+<meta property="og:locale" content="ko_KR">
+<link rel="canonical" href="https://gjas.archivia.kr/check">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EducationalApplication",
+  "name": "2026 공주건축학교 사전답사 검증표",
+  "description": "공주건축학교 운영위원회 내부용 카페 답사 후보지 현장 검증 웹앱",
+  "author": {"@type": "Organization", "name": "아르키비아 건축사사무소", "alternateName": "ARCHIVIA Architects", "url": "https://www.archivia.kr"},
+  "publisher": {"@type": "Organization", "name": "공주건축학교 운영위원회"},
+  "inLanguage": "ko",
+  "dateCreated": "2026-05-08",
+  "license": "공주건축학교 운영위원회 내부 전용 — 무단 배포 금지"
+}
+
+// ── 다운로드·복사 방지 ──
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  const k = e.key.toLowerCase();
+  if ((e.ctrlKey || e.metaKey) && ['s','u','p'].includes(k)) e.preventDefault();
+});
+
+</script>
+<!-- ── Config (must be before DOMContentLoaded) ── -->
+<script>
+const VALID_DATE = '2026-05-08';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbwYbeHqRdtS_pSpT2E5B886bsOU_Hxd9pb21ZZDzwA556OdFbdHG7edzeltMnuCagsg/exec';
+function getLocalDate() {
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+const IS_VALID = (getLocalDate() === VALID_DATE);
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Root ── */
+*,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
+:root{
+  /* Brand Core */
+  --icy:#F2F4F7; --ink:#1A1A1A; --charcoal:#2F3E46; --cobalt:#2E5894; --viridian:#004D40;
+  /* Place Colors */
+  --arefi-c:#6A5D7B; --arefi-bg:#E6E1ED; --arefi-brd:#BFB8CC;
+  --citta-c:#004D40; --citta-bg:#D5E8E4; --citta-brd:#8BBDB7;
+  --mona-c:#2E5894; --mona-bg:#D6E0EE; --mona-brd:#B0C4DE;
+  /* Neutral */
+  --sand:#C4B5A2; --desc:#5A6068; --border:#E2DED9;
+  /* Feedback */
+  --ok-c:#004D40; --ok-bg:#D5E8E4; --warn-c:#9B2335; --warn-bg:#F0E4E6; --err-c:#9B2335;
+  --amber-c:#7A5500; --amber-bg:#FFF6D6; --hold-c:#6A5D7B; --hold-bg:#E6E1ED;
+  /* Typography */
+  --font-serif:'Noto Serif KR',serif;
+  --font-sans:'Noto Sans KR',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+html{font-size:15px;-webkit-text-size-adjust:100%}
+body{background:var(--icy);color:var(--ink);font-family:var(--font-sans);min-height:100vh;padding-bottom:40px}
+
+/* ── Header ── */
+.site-header{background:var(--charcoal);padding:14px 16px 12px;position:sticky;top:0;z-index:100}
+.site-header .brand{display:flex;align-items:center;gap:10px}
+.site-header .logo-mark{width:28px;height:28px;background:var(--cobalt);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.site-header .logo-mark svg{width:16px;height:16px;fill:white}
+.site-header .brand-text .org{font-family:var(--font-mono);font-size:9.5px;letter-spacing:2px;color:rgba(255,255,255,.5);text-transform:uppercase}
+.site-header .brand-text .title{font-family:var(--font-serif);font-size:14px;font-weight:600;color:var(--icy);letter-spacing:.3px;margin-top:1px}
+.site-header .internal-badge{font-family:var(--font-mono);font-size:8.5px;letter-spacing:1.5px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.6);padding:2px 8px;border-radius:2px;margin-left:auto;flex-shrink:0}
+
+/* ── Tab Navigation ── */
+.tab-nav{background:white;border-bottom:1px solid var(--border);display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;position:sticky;top:81px;z-index:99}
+.tab-nav::-webkit-scrollbar{display:none}
+.tab-btn{flex:none;padding:11px 14px;font-family:var(--font-sans);font-size:12.5px;font-weight:600;color:var(--desc);background:none;border:none;cursor:pointer;border-bottom:2.5px solid transparent;white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:6px}
+.tab-btn .dot{width:8px;height:8px;border-radius:50%;background:var(--border);flex-shrink:0;transition:background .2s}
+.tab-btn.t-arefi .dot{background:var(--arefi-c)}
+.tab-btn.t-citta .dot{background:var(--citta-c)}
+.tab-btn.t-mona .dot{background:var(--mona-c)}
+.tab-btn.t-compare .dot{background:var(--charcoal)}
+.tab-btn.active{color:var(--ink);border-bottom-color:currentColor}
+.tab-btn.t-arefi.active{color:var(--arefi-c)}
+.tab-btn.t-citta.active{color:var(--citta-c)}
+.tab-btn.t-mona.active{color:var(--mona-c)}
+.tab-btn.t-compare.active{color:var(--charcoal)}
+
+/* ── Wrap ── */
+.wrap{max-width:600px;margin:0 auto;padding:16px 14px}
+
+/* ── Tab Content ── */
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:fadeUp .25s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── Expired Screen ── */
+#expired-screen{display:none;position:fixed;inset:0;background:var(--charcoal);z-index:9999;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:32px}
+#expired-screen.show{display:flex}
+#expired-screen h2{font-family:var(--font-serif);font-size:22px;color:white;margin-bottom:14px}
+#expired-screen p{font-size:13px;color:rgba(255,255,255,.65);line-height:1.9}
+#expired-screen .exp-badge{font-family:var(--font-mono);font-size:11px;letter-spacing:1.5px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.5);padding:4px 14px;border-radius:3px;margin-top:20px}
+
+/* ── Place Header ── */
+.place-header{border-radius:10px;margin-bottom:16px;overflow:hidden}
+/* ── ph-band 할레이션 방지: Icy 페어 T1/T2/T3 ── */
+.place-header .ph-band{padding:18px 16px 14px}
+/* Cobalt(모나): Icy Cobalt 기준 */
+.place-header.mona .ph-band{background:var(--mona-c);color:#D6E0EE}
+.place-header.mona .place-num{color:rgba(214,224,238,.65)}
+.place-header.mona .place-addr{color:rgba(214,224,238,.70)}
+/* Ash Violet(아레피): Icy Lavender 기준 */
+.place-header.arefi .ph-band{background:var(--arefi-c);color:#E6E1ED}
+.place-header.arefi .place-num{color:rgba(230,225,237,.65)}
+.place-header.arefi .place-addr{color:rgba(230,225,237,.70)}
+/* Viridian(치타): Icy Mint 기준 */
+.place-header.citta .ph-band{background:var(--citta-c);color:#D5E8E4}
+.place-header.citta .place-num{color:rgba(213,232,228,.65)}
+.place-header.citta .place-addr{color:rgba(213,232,228,.70)}
+/* submit-btn 할레이션 방지 */
+.submit-btn.mona-btn{background:var(--mona-c);color:#D6E0EE}
+.submit-btn.arefi-btn{background:var(--arefi-c);color:#E6E1ED}
+.submit-btn.citta-btn{background:var(--citta-c);color:#D5E8E4}
+.submit-btn.compare-btn{background:var(--charcoal);color:var(--icy)}
+.place-header .ph-status{padding:10px 14px;background:rgba(0,0,0,.04);border-top:1px solid rgba(0,0,0,.07)}
+.place-header.arefi .ph-status{background:var(--arefi-bg);border-color:var(--arefi-brd)}
+.place-header.citta .ph-status{background:var(--citta-bg);border-color:var(--citta-brd)}
+.place-header.mona  .ph-status{background:var(--mona-bg); border-color:var(--mona-brd)}
+.place-header .place-num{font-family:var(--font-mono);font-size:9.5px;letter-spacing:2px;opacity:.65;text-transform:uppercase;margin-bottom:5px}
+.place-header .place-name{font-family:var(--font-serif);font-size:22px;font-weight:700;line-height:1.2;margin-bottom:6px}
+.place-header .place-addr{font-size:11px;opacity:.65;font-family:var(--font-mono)}
+.status-bar{display:flex;gap:6px;flex-wrap:wrap}
+/* s-pill → 위에서 정의됨 */
+
+/* ── Meta Card ── */
+.meta-card{background:white;border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:14px}
+.meta-card .section-label{font-family:var(--font-mono);font-size:9.5px;letter-spacing:1.5px;color:var(--desc);text-transform:uppercase;margin-bottom:10px;font-weight:500}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.meta-field label{display:block;font-size:10.5px;font-weight:600;color:var(--charcoal);margin-bottom:4px;letter-spacing:.3px}
+.meta-field label.req::after{content:'*';color:var(--err-c);margin-left:2px}
+.meta-input{width:100%;border:1.5px solid #C0BAB5;border-radius:6px;padding:8px 10px;font-family:var(--font-sans);font-size:13px;background:var(--icy);transition:border .2s;color:var(--ink)}
+.meta-input:focus{outline:none;border-color:var(--cobalt);background:white}
+.meta-input.err{border-color:var(--err-c);background:#FFF5F5}
+.meta-input.full{grid-column:1/-1}
+
+/* ── Section Divider ── */
+.section-title{font-family:var(--font-mono);font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--desc);font-weight:600;padding:12px 0 8px;display:flex;align-items:center;gap:8px}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── Check Items ── */
+.check-card{background:white;border:1px solid #C8CDD3;border-radius:8px;margin-bottom:8px;overflow:hidden;transition:border .15s}
+.check-card.checked-ok{border-color:var(--ok-c)}
+.check-card.checked-warn{border-color:var(--warn-c)}
+.check-card .check-row{display:flex;align-items:flex-start;gap:12px;padding:12px}
+.check-box{width:24px;height:24px;border:2px solid #A8A2A0;border-radius:5px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;background:white;transition:all .15s;-webkit-user-select:none;user-select:none}
+.check-box:active{transform:scale(.9)}
+.check-card.checked-ok .check-box{background:var(--ok-c);border-color:var(--ok-c)}
+.check-card.checked-ok .check-box::after{content:'✓';color:#D5E8E4;font-size:13px;font-weight:700}
+.check-card.checked-warn .check-box{background:var(--warn-bg);border-color:var(--warn-c)}
+.check-card.checked-warn .check-box::after{content:'!';color:var(--warn-c);font-size:13px;font-weight:700}
+/* 미확인 pill */
+.s-pill{font-family:var(--font-mono);font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;background:#E0E3E6;color:#5C6066;border:1px solid rgba(0,0,0,.08)}
+.s-pill.ok{background:var(--ok-bg);color:var(--ok-c);border-color:rgba(0,77,64,.18)}
+.s-pill.warn{background:var(--warn-bg);color:var(--warn-c);border-color:rgba(155,35,53,.18)}
+.s-pill.pend{background:var(--amber-bg);color:var(--amber-c);border-color:rgba(122,85,0,.18)}
+.check-text{flex:1;min-width:0}
+.check-label-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:3px}
+.check-label-text{font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.3}
+.p-tag{font-family:var(--font-mono);font-size:9px;font-weight:600;padding:2px 6px;border-radius:3px;letter-spacing:.5px;flex-shrink:0}
+.p-tag.must{background:#FEE2E2;color:#991B1B}
+.p-tag.rec{background:#E0F2FE;color:#0369A1}
+.p-tag.opt{background:#F0FDF4;color:#166534}
+.check-hint{font-size:11.5px;color:var(--desc);line-height:1.5}
+.fail-note{font-family:var(--font-mono);font-size:10px;color:var(--err-c);margin-top:4px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.check-memo{width:100%;border:none;border-top:1px solid var(--icy);padding:8px 12px;font-family:var(--font-sans);font-size:12px;color:var(--desc);background:var(--icy);resize:none;min-height:40px;transition:min-height .15s}
+.check-memo:focus{outline:none;min-height:70px;color:var(--ink);background:white}
+
+/* ── Verdict ── */
+.verdict-card{background:white;border:1px solid var(--border);border-radius:10px;padding:14px;margin-top:14px}
+.verdict-card .section-label{font-family:var(--font-mono);font-size:9.5px;letter-spacing:1.5px;color:var(--desc);text-transform:uppercase;margin-bottom:10px;font-weight:500}
+.verdict-opts{display:flex;gap:8px;margin-bottom:10px}
+.v-btn{flex:1;padding:10px 6px;border:2px solid #C0BAB5;border-radius:8px;background:white;font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--desc);cursor:pointer;transition:all .15s;text-align:center}
+.v-btn.sel-go{background:var(--ok-bg);border-color:var(--ok-c);color:var(--ok-c)}
+.v-btn.sel-hold{background:var(--hold-bg);border-color:var(--hold-c);color:var(--hold-c)}
+.v-btn.sel-no{background:#FEF2F2;border-color:var(--err-c);color:var(--err-c)}
+.verdict-memo{width:100%;border:1.5px solid var(--border);border-radius:6px;padding:10px;font-family:var(--font-sans);font-size:12.5px;color:var(--ink);resize:none;min-height:70px}
+.verdict-memo:focus{outline:none;border-color:var(--cobalt)}
+
+.submit-wrap{margin-top:14px}
+.submit-btn{width:100%;padding:15px;border-radius:10px;border:none;font-family:var(--font-sans);font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:.3px}
+.submit-btn.compare-btn{background:var(--charcoal)}
+.submit-btn:active{transform:scale(.98)}
+.submit-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.submit-msg{font-size:12px;text-align:center;margin-top:8px;min-height:18px}
+.submit-msg.ok{color:var(--ok-c);font-weight:600}
+.submit-msg.err{color:var(--err-c)}
+
+/* ── Compare Panel ── */
+.compare-intro{font-size:12.5px;color:var(--desc);line-height:1.7;margin-bottom:16px}
+.cs-site{background:white;border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:12px;border-left-width:4px}
+.cs-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.cs-name{font-family:var(--font-serif);font-size:15px;font-weight:700;color:var(--ink)}
+.cs-verdict-tag{font-family:var(--font-mono);font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;letter-spacing:.5px}
+.cs-row{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;padding:4px 0;border-bottom:1px solid var(--icy)}
+.cs-row:last-child{border-bottom:none}
+.cs-row .lbl{color:var(--desc)}
+.cs-row .val{font-weight:600}
+.cs-row .val.pass{color:var(--ok-c)}
+.cs-row .val.fail{color:var(--err-c)}
+.cs-row .val.pend{color:var(--desc)}
+.cs-alert{font-family:var(--font-mono);font-size:10.5px;color:var(--err-c);background:#FEF2F2;border-radius:5px;padding:6px 10px;margin-top:6px}
+.cs-opinion{font-size:11.5px;color:var(--desc);background:var(--icy);border-radius:5px;padding:8px 10px;margin-top:6px;line-height:1.5}
+
+/* ── Footer ── */
+.site-footer{margin-top:28px;padding:16px;border-top:1px solid var(--border);text-align:center}
+.site-footer .copy{font-family:var(--font-mono);font-size:9.5px;color:var(--desc);line-height:1.8;letter-spacing:.3px}
+.site-footer .copy strong{color:var(--charcoal)}
+
+/* ── Modal ── */
+.modal-bg{position:fixed;inset:0;background:rgba(30,40,46,.6);z-index:200;display:none;align-items:flex-end;justify-content:center;padding:0}
+.modal-bg.show{display:flex;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-sheet{background:white;border-radius:16px 16px 0 0;width:100%;max-width:600px;max-height:80vh;overflow:hidden;display:flex;flex-direction:column;animation:slideUp .25s ease}
+@keyframes slideUp{from{transform:translateY(40px)}to{transform:translateY(0)}}
+.modal-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:10px auto 0}
+.modal-title{font-family:var(--font-serif);font-size:16px;font-weight:700;color:var(--ink);padding:12px 18px 8px;border-bottom:1px solid var(--icy)}
+.modal-body{overflow-y:auto;padding:14px 18px;flex:1}
+.modal-summary{font-family:var(--font-mono);font-size:11.5px;color:var(--charcoal);background:var(--icy);border-radius:8px;padding:14px;line-height:1.7;white-space:pre-wrap;word-break:break-all}
+.modal-actions{display:flex;gap:10px;padding:12px 18px 18px;padding-bottom:calc(18px + env(safe-area-inset-bottom))}
+.m-btn{flex:1;padding:13px;border-radius:8px;border:none;font-family:var(--font-sans);font-size:13px;font-weight:700;cursor:pointer}
+.m-btn.share{background:var(--cobalt);color:#D6E0EE}
+.m-btn.print{background:var(--icy);color:var(--charcoal);border:1.5px solid var(--border)}
+.m-btn.close{background:var(--icy);color:var(--desc);border:1.5px solid var(--border)}
+
+/* ── 내부용 고지 배너 ── */
+.internal-notice{background:#1A1A1A;padding:5px 16px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.internal-notice span{font-family:var(--font-mono);font-size:9px;letter-spacing:1px;color:rgba(255,255,255,.5)}
+.internal-notice strong{font-family:var(--font-mono);font-size:9px;letter-spacing:.5px;color:#FFD87A;font-weight:600}
+/* 모나밸리 — Lavender Icy */
+[data-site="mona"] .meta-card       { background:var(--mona-bg) !important; border-color:var(--mona-c); }
+[data-site="mona"] .verdict-card    { background:var(--mona-bg) !important; border-color:var(--mona-c); }
+[data-site="mona"] .check-card      { background:#F6F9FE; border-left:3px solid var(--mona-c); }
+[data-site="mona"] .check-card.checked-ok   { border-left-color:var(--ok-c); }
+[data-site="mona"] .check-card.checked-warn { border-left-color:var(--warn-c); }
+[data-site="mona"] .section-title   { color:var(--mona-c); }
+[data-site="mona"] .meta-input:focus{ border-color:var(--mona-c); }
+/* 아레피 — Cobalt Icy */
+[data-site="arefi"] .meta-card      { background:var(--arefi-bg) !important; border-color:var(--arefi-c); }
+[data-site="arefi"] .verdict-card   { background:var(--arefi-bg) !important; border-color:var(--arefi-c); }
+[data-site="arefi"] .check-card     { background:#EDE9F5; border-left:3px solid var(--arefi-c); }
+[data-site="arefi"] .check-card.checked-ok   { border-left-color:var(--ok-c); }
+[data-site="arefi"] .check-card.checked-warn { border-left-color:var(--warn-c); }
+[data-site="arefi"] .section-title  { color:var(--arefi-c); }
+[data-site="arefi"] .meta-input:focus{ border-color:var(--arefi-c); }
+/* 치타누오바 — Viridian Icy */
+[data-site="citta"] .meta-card      { background:var(--citta-bg) !important; border-color:var(--citta-c); }
+[data-site="citta"] .verdict-card   { background:var(--citta-bg) !important; border-color:var(--citta-c); }
+[data-site="citta"] .check-card     { background:#F2F8F6; border-left:3px solid var(--citta-c); }
+[data-site="citta"] .check-card.checked-ok   { border-left-color:var(--ok-c); }
+[data-site="citta"] .check-card.checked-warn { border-left-color:var(--warn-c); }
+[data-site="citta"] .section-title  { color:var(--citta-c); }
+[data-site="citta"] .meta-input:focus{ border-color:var(--citta-c); }
+
+
+@media(max-width:400px){
+  .meta-grid{grid-template-columns:1fr}
+  .verdict-opts .v-btn{font-size:12px;padding:9px 4px}
+}
+
+/* ── A4 Print ── */
+@media print{
+  .site-header,.tab-nav,.submit-wrap,.modal-bg,.verdict-opts,.s-pill{display:none!important}
+  .tab-panel{display:block!important;page-break-before:always}
+  .tab-panel:first-of-type{page-break-before:avoid}
+  .wrap{padding:0;max-width:100%}
+  body{background:white;padding:0}
+  .place-header,.meta-card,.check-card,.verdict-card{break-inside:avoid;box-shadow:none}
+  @page{size:A4;margin:20mm 15mm 18mm 15mm}
+  .check-memo{min-height:30px}
+  .site-footer{display:block!important;page-break-before:always}
+}
+
+/* ── Student Sub-checks ── */
+.student-sub{margin-top:8px;border-radius:6px;overflow:hidden}
+.student-sub + .student-sub{margin-top:5px}
+.sub-header{display:flex;align-items:center;gap:5px;padding:5px 10px;font-family:var(--font-mono);font-size:9.5px;font-weight:600;letter-spacing:.8px;text-transform:uppercase}
+.sub-header.elem{background:var(--ok-bg);color:var(--ok-c);border-left:3px solid var(--ok-c)}
+.sub-header.mid{background:var(--arefi-bg);color:var(--arefi-c);border-left:3px solid var(--arefi-c)}
+.sub-body{padding:4px 10px 8px;background:rgba(255,255,255,.55)}
+.sub-check{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--ink);line-height:1.5;padding:4px 0;cursor:pointer;-webkit-tap-highlight-color:transparent;border-bottom:1px solid rgba(0,0,0,.04)}
+.sub-check:last-child{border-bottom:none}
+.mini-box{width:15px;height:15px;border:1.5px solid #A8A2A0;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:white;transition:all .15s}
+.mini-box.on{background:var(--ok-c);border-color:var(--ok-c)}
+.mini-box.on::after{content:'✓';color:#D5E8E4;font-size:9px;font-weight:700}
+
+/* ── Footer Footnote ── */
+.doc-footnote{font-family:var(--font-mono);font-size:10px;color:var(--desc);line-height:1.9;padding:10px 0 0;border-top:1px solid var(--border)}
+.doc-footnote sup{color:var(--cobalt);font-weight:700;margin-right:2px}
+
+
+/* ── Photo Upload Block ── */
+.photo-block{border-radius:10px;padding:14px;margin-top:14px}
+.photo-block .section-label{margin-bottom:10px}
+.photo-desc{font-size:11.5px;color:var(--desc);line-height:1.6;margin-bottom:12px}
+.photo-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border-radius:8px;border:none;font-family:var(--font-sans);font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;transition:all .2s;color:white;letter-spacing:.2px}
+.photo-btn:active{transform:scale(.98);opacity:.9}
+.photo-note{font-family:var(--font-mono);font-size:10px;color:var(--desc);margin-top:8px;text-align:center;line-height:1.6}
+
+
+.place-header.mona  .site-kw{color:#D6E0EE}
+.place-header.arefi .site-kw{color:#E6E1ED}
+.place-header.citta .site-kw{color:#D5E8E4}
+.place-header.mona  .site-concept{color:rgba(214,224,238,.75)}
+.place-header.arefi .site-concept{color:rgba(230,225,237,.75)}
+.place-header.citta .site-concept{color:rgba(213,232,228,.75)}
+/* ── Concept Block ── */
+.concept-block{background:white;border:1px solid var(--border);border-left:4px solid;border-radius:10px;padding:14px;margin-bottom:14px;display:flex;align-items:flex-start;gap:14px}
+.concept-kw{font-family:var(--font-serif);font-size:24px;font-weight:700;line-height:1;flex-shrink:0;min-width:48px;padding-top:2px}
+.concept-right{flex:1}
+.concept-desc{font-size:11.5px;color:var(--ink);line-height:1.65;margin-bottom:8px}
+.concept-tags{display:flex;gap:5px;flex-wrap:wrap}
+.concept-tag{font-family:var(--font-mono);font-size:9.5px;font-weight:600;letter-spacing:.4px;padding:2px 7px;border-radius:4px}
+
+
+body{-webkit-user-select:none;user-select:none}
+input,textarea,select{-webkit-user-select:text!important;user-select:text!important}
+</style>
+</head>
+<body>
+
+<!-- ── Expired Screen ── -->
+<div id="expired-screen" role="alert" aria-live="assertive">
+  <h2>⏰ 접근 기간 만료</h2>
+  <p>이 웹앱은 <strong style="color:#FFD87A">2026년 5월 8일</strong>에만 사용 가능합니다.<br><br>문의: via@archivia.kr</p>
+  <div class="exp-badge">ARCHIVIA Architects · 공주건축학교 운영위원회</div>
+</div>
+
+<!-- ── Site Header ── -->
+<header class="site-header" role="banner">
+  <div class="brand">
+    <div class="brand-text">
+      <div class="org">ARCHIVIA Architects</div>
+      <div class="title">2026 공주건축학교 · 사전답사 검증표</div>
+    </div>
+    <div class="internal-badge">INTERNAL</div>
+  </div>
+</header>
+
+<!-- ── 내부용 고지 배너 ── -->
+<div class="internal-notice" role="note" aria-label="배포 제한 고지">
+  <strong>🔒 공주건축학교 운영위원회 내부 전용</strong>
+  <span>·</span>
+  <span>무단 공유·배포 금지</span>
+  <span>·</span>
+  <span>© 2026 ARCHIVIA Architects</span>
+</div>
+
+<!-- ── Tab Navigation ── -->
+
+<nav class="tab-nav" role="tablist" aria-label="답사 장소">
+  <button class="tab-btn t-mona active" role="tab" aria-selected="true" aria-controls="panel-mona" onclick="switchTab('mona',this)">
+    <span class="dot" aria-hidden="true"></span>모나밸리
+  </button>
+  <button class="tab-btn t-arefi" role="tab" aria-selected="false" aria-controls="panel-arefi" onclick="switchTab('arefi',this)">
+    <span class="dot" aria-hidden="true"></span>아레피
+  </button>
+  <button class="tab-btn t-citta" role="tab" aria-selected="false" aria-controls="panel-citta" onclick="switchTab('citta',this)">
+    <span class="dot" aria-hidden="true"></span>치타누오바
+  </button>
+  <button class="tab-btn t-compare" role="tab" aria-selected="false" aria-controls="panel-compare" onclick="switchTab('compare',this)">
+    <span class="dot" aria-hidden="true"></span>비교종합
+  </button>
+</nav>
+
+<div class="wrap">
+
+<!-- ── 사용법 안내 ── -->
+<div class="meta-card" role="note" style="background:#D6E0EE;border-color:#2E5894;">
+  <div class="section-label">사용법 · HOW TO USE</div>
+  <div style="display:flex;flex-direction:column;gap:0;">
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:6px 0;border-bottom:1px solid rgba(46,88,148,.15);">
+      <span style="font-family:var(--font-mono);font-size:10px;font-weight:700;color:#2E5894;min-width:18px;flex-shrink:0;padding-top:2px;">01</span>
+      <span style="font-size:12px;color:var(--ink);line-height:1.7;">현장에서 스마트폰으로 열어 직접 체크합니다.</span>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:6px 0;border-bottom:1px solid rgba(46,88,148,.15);">
+      <span style="font-family:var(--font-mono);font-size:10px;font-weight:700;color:#2E5894;min-width:18px;flex-shrink:0;padding-top:2px;">02</span>
+      <span style="font-size:12px;color:var(--ink);line-height:1.8;">각 항목의 □ 체크박스를 탭하면 3단계로 전환됩니다.<br>
+        <span style="display:inline-flex;align-items:center;gap:6px;margin-top:4px;flex-wrap:wrap;">
+          <span style="background:#D5E8E4;color:#004D40;font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;">1탭 ✓ 적합</span>
+          <span style="color:var(--desc);font-size:11px;">→</span>
+          <span style="background:#F0E4E6;color:#9B2335;font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;">2탭 ! 주의</span>
+          <span style="color:var(--desc);font-size:11px;">→</span>
+          <span style="background:#E0E3E6;color:#5C6066;font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;">3탭 ○ 미확인</span>
+        </span>
+      </span>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:6px 0;border-bottom:1px solid rgba(46,88,148,.15);">
+      <span style="font-family:var(--font-mono);font-size:10px;font-weight:700;color:#2E5894;min-width:18px;flex-shrink:0;padding-top:2px;">03</span>
+      <span style="font-size:12px;color:var(--ink);line-height:1.7;">이름 입력 시 답사 일시가 자동 기록됩니다. 장소별 체크 완료 후 <strong style="color:#2E5894;">제출</strong> 버튼을 눌러 저장하세요.</span>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:6px 0;">
+      <span style="font-family:var(--font-mono);font-size:10px;font-weight:700;color:#2E5894;min-width:18px;flex-shrink:0;padding-top:2px;">04</span>
+      <span style="font-size:12px;color:var(--ink);line-height:1.7;"><strong style="color:#2E5894;">비교 종합</strong> 탭에 3개 장소 결과가 자동 반영됩니다.</span>
+    </div>
+  </div>
+  <!-- 범례 참조 -->
+  <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(46,88,148,.2);display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--desc);">
+    <span style="display:flex;align-items:center;gap:5px;"><span style="width:8px;height:8px;border-radius:50%;background:#9B2335;flex-shrink:0;display:inline-block;"></span><strong style="color:#9B2335;">필수</strong> 미통과 시 탈락</span>
+    <span style="display:flex;align-items:center;gap:5px;"><span style="width:8px;height:8px;border-radius:50%;background:#2E5894;flex-shrink:0;display:inline-block;"></span><span style="color:#2E5894;font-weight:600;">권장</span> 충족 시 우선순위 상승</span>
+    <span style="display:flex;align-items:center;gap:5px;"><span style="width:8px;height:8px;border-radius:50%;background:#5C6066;flex-shrink:0;display:inline-block;"></span>부가 — 있으면 좋음</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ TAB: 아레피 ══════════════════════════════ -->
+<section id="panel-arefi" class="tab-panel" role="tabpanel" data-site="arefi" aria-labelledby="tab-arefi">
+
+  <div class="place-header arefi" itemscope itemtype="https://schema.org/CafeOrCoffeeShop">
+    <div class="ph-band">
+      <div class="place-num">STOP 02 · ALEFFEE</div>
+      <div class="place-name" itemprop="name">아레피 ALEFFEE</div>
+      <div class="place-addr" itemprop="address">충남 아산시 영인면 영인로 187-15 · 영인저수지 뷰 · <strong>예정 13:00~14:40</strong></div>
+    </div>
+    <div class="ph-status"><div class="status-bar" id="arefi-status" aria-live="polite"></div></div>
+  </div>
+
+  <!-- ── 컨셉 블록 ── -->
+  <div class="concept-block" style="border-left-color:#6A5D7B;">
+    <div class="concept-kw" style="color:#6A5D7B;">오름</div>
+    <div class="concept-right">
+      <div class="concept-desc">수면 위로 솟은 건물, 층을 오를수록 열리는 세계</div>
+      <div class="concept-tags"><span class="concept-tag" style="background:#EDE9F5;color:#6A5D7B;">수직 여정</span><span class="concept-tag" style="background:#EDE9F5;color:#6A5D7B;">수변 건축</span></div>
+    </div>
+  </div>
+
+    <div class="meta-card" role="group" aria-label="현장 확인 정보" style="background:#E6E1ED;border-color:#6A5D7B">
+    <div class="section-label">현장 확인 정보</div>
+    <div class="meta-grid">
+      <div class="meta-field">
+        <label for="arefi-name" class="req">답사자 이름</label>
+        <input class="meta-input" id="arefi-name" placeholder="이름 (필수)" data-site="arefi" data-field="name" autocomplete="name" required oninput="autoFillDate('arefi')">
+      </div>
+      <div class="meta-field">
+        <label for="arefi-date">답사 일시</label>
+        <input class="meta-input" id="arefi-date" placeholder="2026-05-08 HH:MM" data-site="arefi" data-field="date">
+      </div>
+      <div class="meta-field">
+        <label for="arefi-contact">현장 담당자</label>
+        <input class="meta-input" id="arefi-contact" placeholder="이름 / 연락처" data-site="arefi" data-field="contact">
+      </div>
+      <div class="meta-field">
+        <label for="arefi-travel">이동 수단</label>
+        <input class="meta-input" id="arefi-travel" placeholder="버스·자차 등" data-site="arefi" data-field="travel">
+      </div>
+      <div class="meta-field">
+        <label for="arefi-prebook">사전 예약 여부</label>
+        <input class="meta-input" id="arefi-prebook" placeholder="예약 완료 / 연락 필요 / 불필요" data-site="arefi" data-field="prebook">
+      </div>
+      <div class="meta-field">
+        <label for="arefi-travel-time">실제 이동 시간 (공주→)</label>
+        <input class="meta-input" id="arefi-travel-time" placeholder="예: 45분" data-site="arefi" data-field="travel-time">
+      </div>
+      <div class="meta-field" style="grid-column:1/-1">
+        <label for="arefi-consult">사전 협의 결과</label>
+        <textarea class="meta-input" id="arefi-consult" placeholder="단체 방문 협의 내용, 특이사항 등" data-site="arefi" data-field="consult" rows="2" style="resize:vertical;min-height:44px"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 필수 항목 -->
+  <div class="section-title" data-site="arefi" data-cat="must">필수 MUST</div>
+
+  <article class="check-card" data-site="arefi" data-cat="안전" data-label="답사 동선 안전" data-priority="must">
+    <div class="check-row">
+      <div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))" aria-label="답사 동선 안전 체크"></div>
+      <div class="check-text">
+        <div class="check-label-row">
+          <span class="check-label-text">학생 답사 동선이 안전한가</span>
+          <span class="p-tag must">필수</span>
+        </div>
+        <div class="check-hint">루프탑(3F) 난간 안전, 야외 데크 단차, 저수지 접근 통제 여부</div>
+        <div class="fail-note">※ 미통과 시 탈락</div>
+      </div>
+    </div>
+    <textarea class="check-memo" data-site="arefi" placeholder="안전 메모" rows="2"></textarea>
+  </article>
+
+  <article class="check-card" data-site="arefi" data-cat="안전" data-label="화장실·우천 대응" data-priority="must">
+    <div class="check-row">
+      <div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))" aria-label="화장실·우천 대응 체크"></div>
+      <div class="check-text">
+        <div class="check-label-row">
+          <span class="check-label-text">화장실·대기 공간·우천 시 대응</span>
+          <span class="p-tag must">필수</span>
+        </div>
+        <div class="check-hint">화장실 위치·수량(2층 수유실 확인), 비 올 때 20명 실내 대기 공간</div>
+        <div class="fail-note">※ 미통과 시 탈락</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="check-card" data-site="arefi" data-cat="운영" data-label="정상 영업" data-priority="must">
+    <div class="check-row">
+      <div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+      <div class="check-text">
+        <div class="check-label-row"><span class="check-label-text">현재 정상 영업 중</span><span class="p-tag must">필수</span></div>
+        <div class="check-hint">폐업·업종 변경·리모델링 휴업 여부</div>
+        <div class="fail-note">※ 미통과 시 탈락</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="check-card" data-site="arefi" data-cat="운영" data-label="운영시간 일치" data-priority="must">
+    <div class="check-row">
+      <div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+      <div class="check-text">
+        <div class="check-label-row"><span class="check-label-text">운영 시간이 답사 일정과 맞는가</span><span class="p-tag must">필수</span></div>
+        <div class="check-hint">10:00~20:30 (수요일 음식 불가) / 답사 예상 도착: 13:00 (13:00~14:40)</div>
+        <div class="fail-note">※ 미통과 시 탈락</div>
+      </div>
+    </div>
+    <textarea class="check-memo" data-site="arefi" placeholder="영업시간 현장 확인 메모" rows="2"></textarea>
+  </article>
+
+  <article class="check-card" data-site="arefi" data-cat="운영" data-label="단체 수용" data-priority="must">
+    <div class="check-row">
+      <div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+      <div class="check-text">
+        <div class="check-label-row"><span class="check-label-text">20명+ 학생 단체 입장 가능한가</span><span class="p-tag must">필수</span></div>
+        <div class="check-hint">사전 연락·예약 필요 여부. 가족 단위 혼잡 시간대 파악</div>
+        <div class="fail-note">※ 미통과 시 탈락</div>
+      </div>
+    </div>
+    <textarea class="check-memo" data-site="arefi" placeholder="수용 가능 인원, 예약 방법" rows="2"></textarea>
+  </article>
+
+  <article class="check-card" data-site="arefi" data-cat="운영" data-label="촬영 허용" data-priority="must">
+    <div class="check-row">
+      <div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+      <div class="check-text">
+        <div class="check-label-row"><span class="check-label-text">사진 촬영·스케치 활동 허용</span><span class="p-tag must">필수</span></div>
+        <div class="check-hint">내부 촬영 정책, 루프탑·야외 활동 허용 범위</div>
+        <div class="fail-note">※ 미통과 시 탈락</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="check-card" data-site="arefi" data-cat="운영" data-label="버스 주차" data-priority="must">
+    <div class="check-row">
+      <div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+      <div class="check-text">
+        <div class="check-label-row"><span class="check-label-text">버스 진입·주차 가능</span><span class="p-tag must">필수</span></div>
+        <div class="check-hint">무료 전용주차장 확인(웹 기준). 대형 버스 공간 현장 확인</div>
+        <div class="fail-note">※ 미통과 시 탈락</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 권장 항목 -->
+  <div class="section-title" data-site="arefi" data-cat="rec">권장 RECOMMENDED</div>
+
+  <article class="check-card" data-site="arefi" data-cat="교육" data-label="혼잡도 적정" data-priority="rec">
+    <div class="check-row">
+      <div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+      <div class="check-text">
+        <div class="check-label-row"><span class="check-label-text">혼잡도 — 답사 시간대에 여유가 있는가</span><span class="p-tag rec">권장</span></div>
+        <div class="check-hint">가족 단위 손님 많음. 평일 오전 기준 확인 필요</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="check-card" data-site="arefi" data-cat="교육" data-label="루프탑 개방" data-priority="rec">
+    <div class="check-row">
+      <div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+      <div class="check-text">
+        <div class="check-label-row"><span class="check-label-text">루프탑(3F) 학생 개방 가능 여부</span><span class="p-tag rec">권장</span></div>
+        <div class="check-hint">루프탑+야외 테이블+온돌이 핵심 교육 공간. 단체 이용 가능한가</div>
+      </div>
+    </div>
+    <textarea class="check-memo" data-site="arefi" placeholder="루프탑 이용 조건" rows="2"></textarea>
+  </article>
+
+  <article class="check-card" data-site="arefi" data-cat="교육" data-label="외부 관찰 포인트" data-priority="rec">
+    <div class="check-row">
+      <div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+      <div class="check-text">
+        <div class="check-label-row"><span class="check-label-text">저수지 뷰·외부 데크 관찰 포인트 충분한가</span><span class="p-tag rec">권장</span></div>
+        <div class="check-hint">통창 호수뷰, 야외 데크 피크닉 공간, 돗자리·담요 제공 확인</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="check-card" data-site="arefi" data-cat="교육" data-label="학생 눈높이" data-priority="rec">
+    <div class="check-row">
+      <div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+      <div class="check-text">
+        <div class="check-label-row"><span class="check-label-text">학생 눈높이 — 건축 교육 포인트가 있는가</span><span class="p-tag rec">권장</span></div>
+        <div class="check-hint">세계 건축상 수상작. 1F 베이커리·키즈존 / 2F 비즈니스·호수뷰 / 3F 루프탑·갤러리·온돌 3층 구성 체험</div>
+        <div class="student-sub">
+          <div class="sub-header elem">🧒 초등 5~6학년 기준</div>
+          <div class="sub-body">
+            <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>건물이 물 옆에 있다는 게 특별하게 느껴지는가</div>
+            <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>층마다 분위기가 다르다는 걸 느꼈는가</div>
+            <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>건물을 한 문장으로 묘사할 수 있는가</div>
+          </div>
+        </div>
+        <div class="student-sub">
+          <div class="sub-header mid">📐 중학생·고등학생 기준</div>
+          <div class="sub-body">
+            <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>건물과 수면의 관계를 건축적으로 설명할 수 있는가</div>
+            <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>3층 수직 구성의 공간 전략을 읽어냈는가</div>
+            <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>세계 건축상 수상 이유를 현장에서 추론할 수 있는가</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <textarea class="check-memo" data-site="arefi" placeholder="학생 눈높이 종합 메모" rows="2"></textarea>
+  </article>
+
+  <article class="check-card" data-site="arefi" data-cat="교육" data-label="방문 범위" data-priority="rec">
+    <div class="check-row">
+      <div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+      <div class="check-text">
+        <div class="check-label-row"><span class="check-label-text">방문 범위 확인 — 카페만 vs 전체 건물</span><span class="p-tag rec">권장</span></div>
+        <div class="check-hint">1F 베이커리+음료 / 2F 비즈니스룸 / 3F 루프탑+갤러리 — 단체 이동 가능 범위</div>
+      </div>
+    </div>
+    <textarea class="check-memo" data-site="arefi" placeholder="이동 가능 층·구역 메모" rows="2"></textarea>
+  </article>
+
+  <!-- 부가 항목 -->
+  <div class="section-title" data-site="arefi" data-cat="opt">부가 OPTIONAL</div>
+
+  <article class="check-card" data-site="arefi" data-cat="부가" data-label="음료·베이커리 가격" data-priority="opt">
+    <div class="check-row">
+      <div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+      <div class="check-text">
+        <div class="check-label-row"><span class="check-label-text">음료·베이커리 가격대 확인</span><span class="p-tag opt">부가</span></div>
+        <div class="check-hint">아메리카노·에이드 가격. 20인 기준 예산 산정</div>
+      </div>
+    </div>
+    <textarea class="check-memo" data-site="arefi" placeholder="메뉴 품목·가격 메모" rows="2"></textarea>
+  </article>
+
+  <article class="check-card" data-site="arefi" data-cat="부가" data-label="소품 기념품" data-priority="opt">
+    <div class="check-row">
+      <div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+      <div class="check-text">
+        <div class="check-label-row"><span class="check-label-text">소품·기념품 구매 가능 여부</span><span class="p-tag opt">부가</span></div>
+        <div class="check-hint">플리마켓 상설 여부. 현장 확인</div>
+      </div>
+    </div>
+    <textarea class="check-memo" data-site="arefi" placeholder="소품 품목·가격" rows="2"></textarea>
+  </article>
+
+  <!-- Verdict + Submit -->
+  <div class="verdict-card">
+    <div class="section-label">종합 판단</div>
+    <div class="verdict-opts" role="group" aria-label="아레피 종합 판단">
+      <button class="v-btn" data-site="arefi" onclick="verdict(this,'go')">✓ 적합</button>
+      <button class="v-btn" data-site="arefi" onclick="verdict(this,'hold')">△ 보류</button>
+      <button class="v-btn" data-site="arefi" onclick="verdict(this,'no')">✕ 부적합</button>
+    </div>
+    <textarea class="verdict-memo" id="arefi-verdict-memo" data-site="arefi" data-type="verdict-memo" placeholder="종합 의견 (운영위 공유용)" rows="3"></textarea>
+  </div>
+
+  <div class="submit-wrap">
+    <button class="submit-btn arefi-btn" id="arefi-submit-btn" onclick="submitSite('arefi')" aria-label="아레피 검증 결과 제출">
+      <span>📤</span><span>아레피 검증 결과 제출</span>
+    </button>
+    <div class="submit-msg" id="arefi-submit-msg" role="status" aria-live="polite"></div>
+  </div>
+
+  <!-- ── 사진 업로드 ── -->
+  <div class="photo-block" style="background:#E6E1ED;border:1px solid #6A5D7B;">
+    <div class="section-label" style="color:#6A5D7B;">사진 업로드 · PHOTO UPLOAD</div>
+    <p class="photo-desc">현장 사진을 구글 드라이브 폴더에 직접 업로드합니다.<br>버튼을 누르면 이 장소 전용 폴더가 열립니다.</p>
+    <a class="photo-btn" href="https://drive.google.com/drive/folders/1rj5DWmgNTrYtMapihIK60oz_iEYmBJkz" target="_blank" rel="noopener" style="background:#6A5D7B;">
+      📷 &nbsp;사진 업로드 — 01_아레피 ALEFFEE
+    </a>
+    <p class="photo-note">Drive 앱 또는 브라우저에서 열립니다 &nbsp;·&nbsp; 01_아레피 ALEFFEE</p>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════ TAB: 치타누오바 ══════════════════════════════ -->
+<section id="panel-citta" class="tab-panel" role="tabpanel" data-site="citta" aria-labelledby="tab-citta">
+
+  <div class="place-header citta" itemscope itemtype="https://schema.org/CafeOrCoffeeShop">
+    <div class="ph-band">
+      <div class="place-num">STOP 03 · CITTA NUOVA</div>
+      <div class="place-name" itemprop="name">치타누오바 Cittá Nuova</div>
+      <div class="place-addr" itemprop="address">충남 당진시 합덕읍 평야6로 135 · 신리성지 내 · <strong>예정 14:10~15:50</strong></div>
+    </div>
+    <div class="ph-status"><div class="status-bar" id="citta-status" aria-live="polite"></div></div>
+  </div>
+
+  <!-- ── 컨셉 블록 ── -->
+  <div class="concept-block" style="border-left-color:#004D40;">
+    <div class="concept-kw" style="color:#004D40;">열림</div>
+    <div class="concept-right">
+      <div class="concept-desc">창고의 벽이 열려 성지의 자연과 하나 되다</div>
+      <div class="concept-tags"><span class="concept-tag" style="background:#D5E8E4;color:#004D40;">재생 건축</span><span class="concept-tag" style="background:#D5E8E4;color:#004D40;">자연 연결</span></div>
+    </div>
+  </div>
+
+    <div class="meta-card" role="group" aria-label="현장 확인 정보" style="background:#D5E8E4;border-color:#004D40">
+    <div class="section-label">현장 확인 정보</div>
+    <div class="meta-grid">
+      <div class="meta-field"><label for="citta-name" class="req">답사자 이름</label><input class="meta-input" id="citta-name" placeholder="이름 (필수)" data-site="citta" data-field="name" autocomplete="name" required oninput="autoFillDate('citta')"></div>
+      <div class="meta-field"><label for="citta-date">답사 일시</label><input class="meta-input" id="citta-date" placeholder="2026-05-08 HH:MM" data-site="citta" data-field="date"></div>
+      <div class="meta-field"><label for="citta-contact">현장 담당자</label><input class="meta-input" id="citta-contact" placeholder="이름 / 연락처" data-site="citta" data-field="contact"></div>
+      <div class="meta-field"><label for="citta-travel">이동 수단</label><input class="meta-input" id="citta-travel" placeholder="버스·자차 등" data-site="citta" data-field="travel"></div>
+      <div class="meta-field"><label for="citta-prebook">사전 예약 여부</label><input class="meta-input" id="citta-prebook" placeholder="예약 완료 / 연락 필요 / 불필요" data-site="citta" data-field="prebook"></div>
+      <div class="meta-field"><label for="citta-travel-time">실제 이동 시간 (아레피→)</label><input class="meta-input" id="citta-travel-time" placeholder="예: 30분" data-site="citta" data-field="travel-time"></div>
+      <div class="meta-field" style="grid-column:1/-1"><label for="citta-consult">사전 협의 결과</label><textarea class="meta-input" id="citta-consult" placeholder="성지 측 단체 방문 협의 내용, 잔디밭 점심 가능 여부 등" data-site="citta" data-field="consult" rows="2" style="resize:vertical;min-height:44px"></textarea></div>
+    </div>
+  </div>
+
+  <div class="section-title" data-site="citta" data-cat="must">필수 MUST</div>
+
+  <article class="check-card" data-site="citta" data-cat="안전" data-label="답사 동선 안전" data-priority="must">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">학생 답사 동선이 안전한가</span><span class="p-tag must">필수</span></div><div class="check-hint">성지 내부 도보 동선, 잔디밭 경사·단차, 차량 동선 분리</div><div class="fail-note">※ 미통과 시 탈락</div></div></div>
+    <textarea class="check-memo" data-site="citta" placeholder="안전 메모" rows="2"></textarea>
+  </article>
+
+  <article class="check-card" data-site="citta" data-cat="안전" data-label="화장실·우천 대응" data-priority="must">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">화장실·대기 공간·우천 시 대응</span><span class="p-tag must">필수</span></div><div class="check-hint">카페 내부+성지 시설 화장실 위치·수량. 우천 시 잔디밭 점심 대체 방안 (카페 내부 or 순교미술관) 확인</div><div class="fail-note">※ 미통과 시 탈락</div></div></div>
+  </article>
+
+  <article class="check-card" data-site="citta" data-cat="운영" data-label="정상 영업" data-priority="must">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">현재 정상 영업 중</span><span class="p-tag must">필수</span></div><div class="check-hint">폐업·업종변경·리모델링 휴업 여부</div><div class="fail-note">※ 미통과 시 탈락</div></div></div>
+  </article>
+
+  <article class="check-card" data-site="citta" data-cat="운영" data-label="운영시간 일치" data-priority="must">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">운영 시간이 답사 일정과 맞는가</span><span class="p-tag must">필수</span></div><div class="check-hint">월요일 휴관·12~13시 점심 휴무 확인 / 답사 예상 도착: 14:10경 (14:10~15:50)</div><div class="fail-note">※ 미통과 시 탈락</div></div></div>
+    <textarea class="check-memo" data-site="citta" placeholder="영업시간 메모" rows="2"></textarea>
+  </article>
+
+  <article class="check-card" data-site="citta" data-cat="운영" data-label="단체 수용" data-priority="must">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">20명+ 학생 단체 입장 가능한가</span><span class="p-tag must">필수</span></div><div class="check-hint">베이커리 포장 20인분 가능 여부, 사전 예약 요건</div><div class="fail-note">※ 미통과 시 탈락</div></div></div>
+    <textarea class="check-memo" data-site="citta" placeholder="수용 인원, 연락처" rows="2"></textarea>
+  </article>
+
+  <article class="check-card" data-site="citta" data-cat="운영" data-label="촬영 허용" data-priority="must">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">사진 촬영·스케치 활동 허용</span><span class="p-tag must">필수</span></div><div class="check-hint">내부 촬영 정책, 성지 내 활동 범위</div><div class="fail-note">※ 미통과 시 탈락</div></div></div>
+  </article>
+
+  <article class="check-card" data-site="citta" data-cat="운영" data-label="버스 주차" data-priority="must">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">버스 진입·주차 가능</span><span class="p-tag must">필수</span></div><div class="check-hint">성지 주차장 규모. 대형 버스 진입 가능 여부</div><div class="fail-note">※ 미통과 시 탈락</div></div></div>
+  </article>
+
+  <div class="section-title" data-site="citta" data-cat="rec">권장 RECOMMENDED</div>
+
+  <article class="check-card" data-site="citta" data-cat="교육" data-label="혼잡도 적정" data-priority="rec">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">혼잡도 — 순례객과 겹침 여부</span><span class="p-tag rec">권장</span></div><div class="check-hint">평일 기준. 순례 단체 일정과 충돌 여부</div></div></div>
+  </article>
+
+  <article class="check-card" data-site="citta" data-cat="교육" data-label="외부 관찰 포인트" data-priority="rec">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">실내·외부 관찰 포인트 충분한가</span><span class="p-tag rec">권장</span></div><div class="check-hint">창고 외관 흔적, 창 너머 잔디밭 조망, 초가집·순교미술관 산책 동선</div></div></div>
+  </article>
+
+  <article class="check-card" data-site="citta" data-cat="교육" data-label="학생 눈높이" data-priority="rec">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">학생 눈높이 — 건축 교육 포인트가 있는가</span><span class="p-tag rec">권장</span></div><div class="check-hint">구 창고 재생 건축. 순교 역사 공간·자연 스케일 읽기. 신리성지 잔디밭+초가집+미술관 연계 가능성</div>
+      <div class="student-sub">
+        <div class="sub-header elem">🧒 초등 5~6학년 기준</div>
+        <div class="sub-body">
+          <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>형태가 직관적으로 읽히는가 ("옛날 건물이 바뀌었다")</div>
+          <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>안/밖 관계가 보이는가 ("창 너머 잔디밭이 보인다")</div>
+          <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>분위기를 말로 표현할 수 있는가 ("조용하다", "넓다")</div>
+        </div>
+      </div>
+      <div class="student-sub">
+        <div class="sub-header mid">📐 중학생·고등학생 기준</div>
+        <div class="sub-body">
+          <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>동선과 머무름이 관찰되는가</div>
+          <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>용도 전환(창고→카페)에서 질문이 생기는가 ("원래 뭐였지?")</div>
+          <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>모형 제작 활동으로 연결 가능한가</div>
+        </div>
+      </div></div></div>
+    <textarea class="check-memo" data-site="citta" placeholder="학생 눈높이 종합 메모" rows="2"></textarea>
+  </article>
+
+  <div class="section-title" data-site="citta" data-cat="opt">부가 OPTIONAL</div>
+
+  <article class="check-card" data-site="citta" data-cat="부가" data-label="베이커리 포장" data-priority="opt">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">베이커리 포장 구매 가능·가격대</span><span class="p-tag opt">부가</span></div><div class="check-hint">인당 3,000~4,000원 기준. 20인분 일괄 포장 가능?</div></div></div>
+    <textarea class="check-memo" data-site="citta" placeholder="베이커리 품목·가격" rows="2"></textarea>
+  </article>
+
+  <article class="check-card" data-site="citta" data-cat="부가" data-label="소품 구매" data-priority="opt">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">성지 내 엽서·소품 구매 가능 여부</span><span class="p-tag opt">부가</span></div><div class="check-hint">"내가 가져온 한 가지" 기념품 후보</div></div></div>
+    <textarea class="check-memo" data-site="citta" placeholder="소품 품목·가격" rows="2"></textarea>
+  </article>
+
+  <div class="verdict-card">
+    <div class="section-label">종합 판단</div>
+    <div class="verdict-opts" role="group" aria-label="치타누오바 종합 판단">
+      <button class="v-btn" data-site="citta" onclick="verdict(this,'go')">✓ 적합</button>
+      <button class="v-btn" data-site="citta" onclick="verdict(this,'hold')">△ 보류</button>
+      <button class="v-btn" data-site="citta" onclick="verdict(this,'no')">✕ 부적합</button>
+    </div>
+    <textarea class="verdict-memo" id="citta-verdict-memo" data-site="citta" data-type="verdict-memo" placeholder="종합 의견" rows="3"></textarea>
+  </div>
+
+  <div class="submit-wrap">
+    <button class="submit-btn citta-btn" id="citta-submit-btn" onclick="submitSite('citta')" aria-label="치타누오바 검증 결과 제출">
+      <span>📤</span><span>치타누오바 검증 결과 제출</span>
+    </button>
+    <div class="submit-msg" id="citta-submit-msg" role="status" aria-live="polite"></div>
+  </div>
+
+  <!-- ── 사진 업로드 ── -->
+  <div class="photo-block" style="background:#D5E8E4;border:1px solid #004D40;">
+    <div class="section-label" style="color:#004D40;">사진 업로드 · PHOTO UPLOAD</div>
+    <p class="photo-desc">현장 사진을 구글 드라이브 폴더에 직접 업로드합니다.<br>버튼을 누르면 이 장소 전용 폴더가 열립니다.</p>
+    <a class="photo-btn" href="https://drive.google.com/drive/folders/1Pu6OS-T2_Is1K0A1Vba6-gD3xKoKAmiw" target="_blank" rel="noopener" style="background:#004D40;">
+      📷 &nbsp;사진 업로드 — 02_치타누오바 Cittá Nuova
+    </a>
+    <p class="photo-note">Drive 앱 또는 브라우저에서 열립니다 &nbsp;·&nbsp; 02_치타누오바 Cittá Nuova</p>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════ TAB: 모나밸리 ══════════════════════════════ -->
+<section id="panel-mona" class="tab-panel active" role="tabpanel" data-site="mona" aria-labelledby="tab-mona">
+
+  <div class="place-header mona" itemscope itemtype="https://schema.org/CafeOrCoffeeShop">
+    <div class="ph-band">
+      <div class="place-num">STOP 01 · MONAVALLEY</div>
+      <div class="place-name" itemprop="name">모나밸리 MONAVALLEY <span style="font-size:13px;opacity:.65">(구 모나무르)</span></div>
+      <div class="place-addr" itemprop="address">충남 아산시 순천향로 624 (장존동) · 041-582-1004 · <strong>예정 11:00~12:30</strong><br><span style="opacity:.8;font-size:10.5px">The Red(레스토랑) · The Green(카페+워터가든) · The Purple(갤러리)</span></div>
+    </div>
+    <div class="ph-status"><div class="status-bar" id="mona-status" aria-live="polite"></div></div>
+  </div>
+
+  <!-- ── 컨셉 블록 ── -->
+  <div class="concept-block" style="border-left-color:#2E5894;">
+    <div class="concept-kw" style="color:#2E5894;">품음</div>
+    <div class="concept-right">
+      <div class="concept-desc">건물이 물과 정원을 안으로 끌어안다</div>
+      <div class="concept-tags"><span class="concept-tag" style="background:#D6E0EE;color:#2E5894;">내향 자연</span><span class="concept-tag" style="background:#D6E0EE;color:#2E5894;">물의 건축</span></div>
+    </div>
+  </div>
+
+    <div class="meta-card" role="group" aria-label="현장 확인 정보" style="background:#D6E0EE;border-color:#2E5894">
+    <div class="section-label">현장 확인 정보</div>
+    <div class="meta-grid">
+      <div class="meta-field"><label for="mona-name" class="req">답사자 이름</label><input class="meta-input" id="mona-name" placeholder="이름 (필수)" data-site="mona" data-field="name" autocomplete="name" required oninput="autoFillDate('mona')"></div>
+      <div class="meta-field"><label for="mona-date">답사 일시</label><input class="meta-input" id="mona-date" placeholder="2026-05-08 HH:MM" data-site="mona" data-field="date"></div>
+      <div class="meta-field"><label for="mona-contact">현장 담당자</label><input class="meta-input" id="mona-contact" placeholder="이름 / 연락처" data-site="mona" data-field="contact"></div>
+      <div class="meta-field"><label for="mona-travel">이동 수단</label><input class="meta-input" id="mona-travel" placeholder="버스·자차 등" data-site="mona" data-field="travel"></div>
+      <div class="meta-field"><label for="mona-prebook">사전 예약 여부</label><input class="meta-input" id="mona-prebook" placeholder="예약 완료 / 연락 필요 / 불필요" data-site="mona" data-field="prebook"></div>
+      <div class="meta-field"><label for="mona-travel-time">실제 이동 시간 (공주→)</label><input class="meta-input" id="mona-travel-time" placeholder="예: 40분" data-site="mona" data-field="travel-time"></div>
+      <div class="meta-field" style="grid-column:1/-1"><label for="mona-consult">사전 협의 결과</label><textarea class="meta-input" id="mona-consult" placeholder="단체 관람 협의 내용 (음료 미주문 시 조건 등)" data-site="mona" data-field="consult" rows="2" style="resize:vertical;min-height:44px"></textarea></div>
+    </div>
+  </div>
+
+  <div class="section-title" data-site="mona" data-cat="must">필수 MUST</div>
+
+  <article class="check-card" data-site="mona" data-cat="안전" data-label="답사 동선 안전" data-priority="must">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">학생 답사 동선이 안전한가</span><span class="p-tag must">필수</span></div><div class="check-hint">수공간 주변 낙상 위험, 야외 오솔길 단차, 워터가든 접근 제한</div><div class="fail-note">※ 미통과 시 탈락</div></div></div>
+    <textarea class="check-memo" data-site="mona" placeholder="안전 메모" rows="2"></textarea>
+  </article>
+
+  <article class="check-card" data-site="mona" data-cat="안전" data-label="화장실·우천 대응" data-priority="must">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">화장실·대기 공간·우천 시 대응</span><span class="p-tag must">필수</span></div><div class="check-hint">실내 넓어 우천 가능 예상. 화장실 위치·수량 현장 확인</div><div class="fail-note">※ 미통과 시 탈락</div></div></div>
+  </article>
+
+  <article class="check-card" data-site="mona" data-cat="운영" data-label="정상 영업" data-priority="must">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">현재 정상 영업 중 (모나밸리 명칭 변경 후)</span><span class="p-tag must">필수</span></div><div class="check-hint">2023년 모나무르→모나밸리 상호 변경. 운영 지속 확인</div><div class="fail-note">※ 미통과 시 탈락</div></div></div>
+  </article>
+
+  <article class="check-card" data-site="mona" data-cat="운영" data-label="운영시간 일치" data-priority="must">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">운영 시간이 답사 일정과 맞는가</span><span class="p-tag must">필수</span></div><div class="check-hint">매일 10:00~22:00 (웹 기준) / 답사 예상 도착: 11:00 (11:00~12:30, 점심 포함)</div><div class="fail-note">※ 미통과 시 탈락</div></div></div>
+    <textarea class="check-memo" data-site="mona" placeholder="운영시간 확인" rows="2"></textarea>
+  </article>
+
+  <article class="check-card" data-site="mona" data-cat="운영" data-label="단체 수용" data-priority="must">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">20명+ 단체 방문 가능한가</span><span class="p-tag must">필수</span></div><div class="check-hint">음료 미주문·야외+갤러리만 관람 시 사전 협의 필수</div><div class="fail-note">※ 미통과 시 탈락</div></div></div>
+    <textarea class="check-memo" data-site="mona" placeholder="단체 협의 내용" rows="2"></textarea>
+  </article>
+
+  <article class="check-card" data-site="mona" data-cat="운영" data-label="촬영 허용" data-priority="must">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">사진 촬영·스케치 활동 허용</span><span class="p-tag must">필수</span></div><div class="check-hint">갤러리(The Purple) 내부 촬영 정책. 야외 조각공원은 자유 예상</div><div class="fail-note">※ 미통과 시 탈락</div></div></div>
+  </article>
+
+  <article class="check-card" data-site="mona" data-cat="운영" data-label="버스 주차" data-priority="must">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">버스 진입·주차 가능</span><span class="p-tag must">필수</span></div><div class="check-hint">넓은 주차장 보유(웹 확인). 대형 버스 진입 현장 확인</div><div class="fail-note">※ 미통과 시 탈락</div></div></div>
+  </article>
+
+  <div class="section-title" data-site="mona" data-cat="rec">권장 RECOMMENDED</div>
+
+  <article class="check-card" data-site="mona" data-cat="교육" data-label="방문 범위 협의" data-priority="rec">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">방문 범위 협의 — 카페·갤러리·야외 모두 가능한가</span><span class="p-tag rec">권장</span></div><div class="check-hint">The Green(카페)만 vs 전 시설 관람. 음료 미주문 시 The Red·The Purple 입장 제약 여부 확인</div></div></div>
+    <textarea class="check-memo" data-site="mona" placeholder="협의 결과 상세 기록" rows="2"></textarea>
+  </article>
+
+  <article class="check-card" data-site="mona" data-cat="교육" data-label="혼잡도 적정" data-priority="rec">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">혼잡도 — 답사 시간대 여유가 있는가</span><span class="p-tag rec">권장</span></div><div class="check-hint">1만 평 규모. 갤러리 관람 동선 겹침 여부</div></div></div>
+  </article>
+
+  <article class="check-card" data-site="mona" data-cat="교육" data-label="외부 관찰 포인트" data-priority="rec">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">실내·외부 관찰 포인트 충분한가</span><span class="p-tag rec">권장</span></div><div class="check-hint">야외 조각공원, 바람의 언덕, 솟대정원, 워터가든 조망, 오솔길 산책 동선</div></div></div>
+  </article>
+
+  <article class="check-card" data-site="mona" data-cat="교육" data-label="학생 눈높이" data-priority="rec">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">학생 눈높이 — 건축 교육 포인트가 있는가</span><span class="p-tag rec">권장</span></div><div class="check-hint">The Red·The Green·The Purple 3개 공간 구성. 예술·정원·상업 공간 통합 읽기</div>
+      <div class="student-sub">
+        <div class="sub-header elem">🧒 초등 5~6학년 기준</div>
+        <div class="sub-body">
+          <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>형태가 직관적으로 읽히는가 ("물이 건물 안에 있다!")</div>
+          <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>안/밖 관계가 보이는가 ("하늘은 열려있는데 건물 안이야")</div>
+          <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>분위기를 말로 표현할 수 있는가</div>
+        </div>
+      </div>
+      <div class="student-sub">
+        <div class="sub-header mid">📐 중학생·고등학생 기준</div>
+        <div class="sub-body">
+          <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>동선과 머무름이 관찰되는가</div>
+          <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>질문이 자연스럽게 생기는가 ("왜 물을 가운데 넣었지?")</div>
+          <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>모형 제작 활동으로 연결 가능한가</div>
+        </div>
+      </div></div></div>
+    <textarea class="check-memo" data-site="mona" placeholder="학생 눈높이 종합 메모" rows="2"></textarea>
+  </article>
+
+  <div class="section-title" data-site="mona" data-cat="opt">부가 OPTIONAL</div>
+
+  <article class="check-card" data-site="mona" data-cat="부가" data-label="점심식사 (The Red)" data-priority="opt">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">점심식사 — The Red 레스토랑 또는 대안 확인</span><span class="p-tag opt">부가</span></div><div class="check-hint">답사 첫 번째 장소로 점심식사 예정. The Red 단체 예약 가능 여부, 메뉴·가격대. 불가 시 대안(도시락·인근 식당) 사전 확인</div></div></div>
+    <textarea class="check-memo" data-site="mona" placeholder="식사 예약 방법·메뉴·가격대·대안" rows="2"></textarea>
+  </article>
+
+  <article class="check-card" data-site="mona" data-cat="부가" data-label="플라워 베이커리 소품" data-priority="opt">
+    <div class="check-row"><div class="check-box" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleCard(this.closest('.check-card'))" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard(this.closest('.check-card'))"></div>
+    <div class="check-text"><div class="check-label-row"><span class="check-label-text">The Green 플라워 베이커리 소품 구매 가능 여부</span><span class="p-tag opt">부가</span></div><div class="check-hint">The Green은 "플라워 베이커리 카페"로 분류됨. 독립 플라워샵 존재 여부는 현장 확인 필요. 드라이플라워·미니 부케·엽서 등 구매 가능성 확인</div></div></div>
+    <textarea class="check-memo" data-site="mona" placeholder="소품 품목·가격·구매 가능 여부" rows="2"></textarea>
+  </article>
+
+  <div class="verdict-card">
+    <div class="section-label">종합 판단</div>
+    <div class="verdict-opts" role="group" aria-label="모나밸리 종합 판단">
+      <button class="v-btn" data-site="mona" onclick="verdict(this,'go')">✓ 적합</button>
+      <button class="v-btn" data-site="mona" onclick="verdict(this,'hold')">△ 보류</button>
+      <button class="v-btn" data-site="mona" onclick="verdict(this,'no')">✕ 부적합</button>
+    </div>
+    <textarea class="verdict-memo" id="mona-verdict-memo" data-site="mona" data-type="verdict-memo" placeholder="종합 의견" rows="3"></textarea>
+  </div>
+
+  <div class="submit-wrap">
+    <button class="submit-btn mona-btn" id="mona-submit-btn" onclick="submitSite('mona')" aria-label="모나밸리 검증 결과 제출">
+      <span>📤</span><span>모나밸리 검증 결과 제출</span>
+    </button>
+    <div class="submit-msg" id="mona-submit-msg" role="status" aria-live="polite"></div>
+  </div>
+
+  <!-- ── 사진 업로드 ── -->
+  <div class="photo-block" style="background:#D6E0EE;border:1px solid #2E5894;">
+    <div class="section-label" style="color:#2E5894;">사진 업로드 · PHOTO UPLOAD</div>
+    <p class="photo-desc">현장 사진을 구글 드라이브 폴더에 직접 업로드합니다.<br>버튼을 누르면 이 장소 전용 폴더가 열립니다.</p>
+    <a class="photo-btn" href="https://drive.google.com/drive/folders/1g_8FwNY-fGPrcpqUklqji-3IUZl66jzj" target="_blank" rel="noopener" style="background:#2E5894;">
+      📷 &nbsp;사진 업로드 — 03_모나밸리 MONAVALLEY
+    </a>
+    <p class="photo-note">Drive 앱 또는 브라우저에서 열립니다 &nbsp;·&nbsp; 03_모나밸리 MONAVALLEY</p>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════ TAB: 비교종합 ══════════════════════════════ -->
+<section id="panel-compare" class="tab-panel" role="tabpanel" aria-labelledby="tab-compare">
+
+  <div style="font-family:var(--font-serif);font-size:18px;font-weight:700;color:var(--ink);margin-bottom:6px">비교 종합</div>
+  <p class="compare-intro">개별 탭의 체크 결과가 자동 반영됩니다.<br>이 요약을 기반으로 운영위 최종 투표를 진행합니다.</p>
+
+  <div id="compare-content" role="region" aria-label="장소별 비교 요약" aria-live="polite"></div>
+
+  <div class="meta-card" style="margin-top:14px;background:#F5F3F0">
+    <div class="section-label">다음 단계</div>
+    <p style="font-size:12px;color:var(--desc);line-height:1.7">
+      필수 항목 중 하나라도 <strong style="color:var(--err-c)">주의(!)</strong>가 있는 장소는 재검토 대상입니다.<br>
+      검증 결과를 운영위에 공유 후 답사 루트를 최종 확정합니다.
+    </p>
+  </div>
+
+  <div class="submit-wrap">
+    <button class="submit-btn compare-btn" id="compare-submit-btn" onclick="submitAll()" aria-label="비교종합 전체 제출">
+      <span>📊</span><span>비교 종합 전체 제출</span>
+    </button>
+    <div class="submit-msg" id="compare-submit-msg" role="status" aria-live="polite"></div>
+  </div>
+
+</section>
+
+<!-- ── 각주 ── -->
+<div class="doc-footnote" role="note">
+  <sup>*</sup> 필수(●) 항목 미통과 시 해당 장소는 탈락 기준 적용<br>
+  <sup>*</sup> TBD — 사전답사 후 현장 확인으로 채워지는 미확정 항목
+</div>
+<!-- ── Footer ── -->
+<footer class="site-footer" role="contentinfo">
+  <div class="copy">
+    <strong>© 2026 아르키비아 건축사사무소 (ARCHIVIA Architects)</strong><br>
+    공주건축학교 운영위원회 내부 전용 · 무단 배포 및 외부 공유 금지<br>
+    기획총괄: 허선미 건축사 · via@archivia.kr · www.archivia.kr<br>
+    <span style="opacity:.5">GJAS_사전답사검증표_v2.0_20260508 · 유효: 2026-05-08</span>
+  </div>
+</footer>
+
+</div><!-- /wrap -->
+
+<!-- ── Save Modal ── -->
+<div class="modal-bg" id="save-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-sheet">
+    <div class="modal-handle" aria-hidden="true"></div>
+    <div class="modal-title" id="modal-title">검증 결과 저장</div>
+    <div class="modal-body">
+      <p style="font-size:12px;color:var(--desc);margin-bottom:10px" id="modal-sub">공유 버튼으로 휴대폰에 저장하세요.</p>
+      <div class="modal-summary" id="modal-summary" aria-label="제출 결과 내용"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="m-btn share" onclick="shareResult()" aria-label="결과 공유·저장">📱 공유·저장</button>
+      <button class="m-btn print" onclick="window.print()" aria-label="인쇄">🖨 인쇄</button>
+      <button class="m-btn close" onclick="closeModal()" aria-label="닫기">닫기</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ──────────────────────────────────────────────
+// Constants
+// ──────────────────────────────────────────────
+const LABELS = {
+  arefi: '아레피 ALEFFEE',
+  citta: '치타누오바',
+  mona:  '모나밸리(모나무르)'
+};
+const SITE_COLORS = {
+  arefi: 'var(--arefi-c)',
+  citta: 'var(--citta-c)',
+  mona:  'var(--mona-c)'
+};
+const verdicts = {};
+
+// ──────────────────────────────────────────────
+// Date Lock — Local timezone, silent
+// ──────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', function() {
+  if (!IS_VALID) {
+    var scr = document.getElementById('expired-screen');
+    if (scr) scr.classList.add('show');
+    return; // 이후 초기화 불필요
+  }
+
+  // Init all status bars
+  ['arefi', 'citta', 'mona'].forEach(updateStatus);
+});
+
+// ──────────────────────────────────────────────
+// Tab Switch
+// ──────────────────────────────────────────────
+function switchTab(site, btn) {
+  document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) {
+    b.classList.remove('active');
+    b.setAttribute('aria-selected', 'false');
+  });
+  document.getElementById('panel-' + site).classList.add('active');
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected', 'true');
+  if (site === 'compare') renderCompare();
+}
+
+// ──────────────────────────────────────────────
+// Check Card Toggle — 3 states: unchecked → ok → warn → unchecked
+// ──────────────────────────────────────────────
+function toggleCard(card) {
+  if (!IS_VALID) return;
+  var box = card.querySelector('.check-box');
+  if (card.classList.contains('checked-ok')) {
+    card.classList.remove('checked-ok');
+    card.classList.add('checked-warn');
+    box.setAttribute('aria-checked', 'mixed');
+  } else if (card.classList.contains('checked-warn')) {
+    card.classList.remove('checked-warn');
+    box.setAttribute('aria-checked', 'false');
+  } else {
+    card.classList.add('checked-ok');
+    box.setAttribute('aria-checked', 'true');
+  }
+  updateStatus(card.dataset.site);
+}
+
+// ──────────────────────────────────────────────
+// Mini Sub-check Toggle
+// ──────────────────────────────────────────────
+function toggleMini(el) {
+  var box = el.querySelector('.mini-box');
+  if (box) box.classList.toggle('on');
+}
+
+// Auto-fill Date on Name Input
+// ──────────────────────────────────────────────
+function autoFillDate(site) {
+  var nameEl = document.getElementById(site + '-name');
+  var dateEl = document.getElementById(site + '-date');
+  if (!nameEl || !dateEl) return;
+  if (nameEl.value.trim() && !dateEl.value) {
+    var n = new Date();
+    dateEl.value =
+      n.getFullYear() + '-' +
+      String(n.getMonth()+1).padStart(2,'0') + '-' +
+      String(n.getDate()).padStart(2,'0') + ' ' +
+      String(n.getHours()).padStart(2,'0') + ':' +
+      String(n.getMinutes()).padStart(2,'0');
+  }
+}
+
+// Status Bar
+// ──────────────────────────────────────────────
+function updateStatus(site) {
+  var cards = document.querySelectorAll('.check-card[data-site="' + site + '"]');
+  var ok = 0, warn = 0, none = 0;
+  cards.forEach(function(c) {
+    if (c.classList.contains('checked-ok')) ok++;
+    else if (c.classList.contains('checked-warn')) warn++;
+    else none++;
+  });
+  var bar = document.getElementById(site + '-status');
+  if (!bar) return;
+  bar.innerHTML =
+    '<div class="s-pill' + (ok > 0 ? ' ok' : '') + '">✓ 적합 ' + ok + '</div>' +
+    '<div class="s-pill' + (warn > 0 ? ' warn' : '') + '">! 주의 ' + warn + '</div>' +
+    '<div class="s-pill pend">○ 미확인 ' + none + '</div>';
+}
+
+// ──────────────────────────────────────────────
+// Verdict Buttons
+// ──────────────────────────────────────────────
+function verdict(btn, type) {
+  var site = btn.dataset.site;
+  btn.closest('.verdict-opts').querySelectorAll('.v-btn').forEach(function(b) {
+    b.className = 'v-btn';
+  });
+  btn.classList.add('sel-' + type);
+  verdicts[site] = type;
+}
+
+// ──────────────────────────────────────────────
+// Collect Site Data
+// ──────────────────────────────────────────────
+function collectSiteData(site) {
+  function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+  var checks = [];
+  document.querySelectorAll('.check-card[data-site="' + site + '"]').forEach(function(c) {
+    checks.push({
+      label:    c.dataset.label,
+      priority: c.dataset.priority,
+      cat:      c.dataset.cat,
+      status:   c.classList.contains('checked-ok') ? '적합'
+              : c.classList.contains('checked-warn') ? '주의' : '미확인'
+    });
+  });
+
+  return {
+    site:         site,
+    label:        LABELS[site],
+    name:         val(site + '-name'),
+    date:         val(site + '-date'),
+    contact:      val(site + '-contact'),
+    travel:       val(site + '-travel'),
+    prebook:      val(site + '-prebook'),
+    verdict:      verdicts[site] || '미정',
+    verdict_memo: val(site + '-verdict-memo'),
+    checks:       checks,
+    submittedAt:  new Date().toISOString(),
+    validDate:    VALID_DATE
+  };
+}
+
+// ──────────────────────────────────────────────
+// Format Summary Text (for share/modal)
+// ──────────────────────────────────────────────
+function formatSummary(data) {
+  var vMap = { go: '✓ 적합', hold: '△ 보류', no: '✕ 부적합', '미정': '○ 미정' };
+  var must  = data.checks.filter(function(c) { return c.priority === 'must'; });
+  var mustOk = must.filter(function(c) { return c.status === '적합'; });
+  var mustWarn = must.filter(function(c) { return c.status === '주의'; });
+
+  var txt = '[공주건축학교 사전답사 검증표]\n';
+  txt += '장소: ' + data.label + '\n';
+  txt += '답사자: ' + (data.name || '미입력') + '\n';
+  txt += '답사 일시: ' + (data.date || '미입력') + '\n';
+  txt += '종합 판단: ' + (vMap[data.verdict] || data.verdict) + '\n';
+  txt += '────────────────\n';
+  txt += '필수 항목: ' + mustOk.length + '적합 / ' + mustWarn.length + '주의 / ' + (must.length - mustOk.length - mustWarn.length) + '미확인\n';
+  if (mustWarn.length) txt += '⚠ 주의: ' + mustWarn.map(function(c) { return c.label; }).join(', ') + '\n';
+  if (data.verdict_memo) txt += '\n종합의견:\n' + data.verdict_memo + '\n';
+  txt += '────────────────\n';
+  txt += '제출: ' + data.submittedAt + '\n';
+  txt += '© 2026 ARCHIVIA Architects — 공주건축학교 운영위원회 내부용';
+  return txt;
+}
+
+// ──────────────────────────────────────────────
+// Submit Site
+// ──────────────────────────────────────────────
+function submitSite(site) {
+  var nameEl = document.getElementById(site + '-name');
+  if (!nameEl || !nameEl.value.trim()) {
+    if (nameEl) { nameEl.classList.add('err'); nameEl.focus(); }
+    var msg = document.getElementById(site + '-submit-msg');
+    if (msg) { msg.textContent = '답사자 이름을 입력해주세요.'; msg.className = 'submit-msg err'; }
+    return;
+  }
+  if (nameEl) nameEl.classList.remove('err');
+
+  var data = collectSiteData(site);
+  var btn = document.getElementById(site + '-submit-btn');
+  var msg = document.getElementById(site + '-submit-msg');
+  if (btn) btn.disabled = true;
+  if (msg) { msg.textContent = '⏳ 저장 중...'; msg.className = 'submit-msg'; }
+
+  // localStorage (today-keyed)
+  try { localStorage.setItem('gjas_' + site + '_' + VALID_DATE, JSON.stringify(data)); } catch(e) {}
+
+  // GAS — CORS 모드로 Drive URL 수신
+  if (GAS_URL && !GAS_URL.includes('YOUR_SCRIPT')) {
+    fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'site', ...data })
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(res){
+      if (btn) btn.disabled = false;
+      if (res.status === 'ok' && res.url) {
+        if (msg) { msg.innerHTML = '✓ 저장 완료! <a href="' + res.url + '" target="_blank" style="color:var(--cobalt)">📄 결과 보기</a>'; msg.className = 'submit-msg ok'; }
+        showModal(LABELS[site] + ' 검증 결과 저장', formatSummary(data) + '\n\n📄 Drive 결과: ' + res.url);
+      } else {
+        if (msg) { msg.textContent = '✓ 제출 완료 (Drive 저장 확인 필요)'; msg.className = 'submit-msg ok'; }
+        showModal(LABELS[site] + ' 결과 저장', formatSummary(data));
+      }
+    })
+    .catch(function(){
+      if (btn) btn.disabled = false;
+      if (msg) { msg.textContent = '✓ 로컬 저장 완료 (네트워크 오류)'; msg.className = 'submit-msg ok'; }
+      showModal(LABELS[site] + ' 결과 저장', formatSummary(data));
+    });
+  } else {
+    if (btn) btn.disabled = false;
+    if (msg) { msg.textContent = '✓ 로컬 저장 완료 (GAS 미연결)'; msg.className = 'submit-msg ok'; }
+    showModal(LABELS[site] + ' 결과 저장', formatSummary(data));
+  }
+}
+
+// ──────────────────────────────────────────────
+// Submit All
+// ──────────────────────────────────────────────
+function submitAll() {
+  var allData = ['arefi', 'citta', 'mona'].map(collectSiteData);
+  var payload = { type: 'all', sites: allData, submittedAt: new Date().toISOString() };
+
+  try {
+    fetch(GAS_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch(e) {}
+
+  try {
+    localStorage.setItem('gjas_all_' + VALID_DATE, JSON.stringify(allData));
+  } catch(e) {}
+
+  var vMap = { go: '✓ 적합', hold: '△ 보류', no: '✕ 부적합', '미정': '○ 미정' };
+  var summary = '[공주건축학교 비교 종합 제출]\n제출: ' + new Date().toISOString() + '\n────────────────\n';
+  allData.forEach(function(d) {
+    summary += d.label + ': ' + (vMap[d.verdict] || d.verdict) + ' / 답사자: ' + (d.name || '미입력') + '\n';
+  });
+  summary += '────────────────\n© 2026 ARCHIVIA Architects — 공주건축학교 운영위원회 내부용';
+
+  var msg = document.getElementById('compare-submit-msg');
+  if (msg) { msg.textContent = '✓ 전체 종합 제출 완료!'; msg.className = 'submit-msg ok'; }
+
+  showModal('비교 종합 제출 완료', summary);
+}
+
+// ──────────────────────────────────────────────
+// Modal
+// ──────────────────────────────────────────────
+function showModal(title, summary) {
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-summary').textContent = summary;
+  window._lastSummary = summary;
+  window._lastTitle = title;
+  document.getElementById('save-modal').classList.add('show');
+}
+function closeModal() {
+  document.getElementById('save-modal').classList.remove('show');
+}
+async function shareResult() {
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: window._lastTitle || '사전답사 결과', text: window._lastSummary });
+      return;
+    } catch(e) {}
+  }
+  try {
+    await navigator.clipboard.writeText(window._lastSummary);
+    alert('클립보드에 복사되었습니다. 메모 앱에 붙여넣어 저장하세요.');
+  } catch(e) {
+    alert('텍스트를 직접 선택하여 복사해 주세요.');
+  }
+}
+
+// ──────────────────────────────────────────────
+// Render Compare
+// ──────────────────────────────────────────────
+function renderCompare() {
+  var vMap = { go: '✓ 적합', hold: '△ 보류', no: '✕ 부적합' };
+  var vBg  = { go: 'background:#D5E8E4;color:#004D40', hold: 'background:#D6E0EE;color:#2E5894', no: 'background:#F0E4E6;color:#9B2335' };
+
+  var sites = [
+    { id: 'mona',  color: '#2E5894', kw: '품음' },
+    { id: 'arefi', color: '#6A5D7B', kw: '오름' },
+    { id: 'citta', color: '#004D40', kw: '열림' }
+  ];
+
+  var html = '';
+  sites.forEach(function(s) {
+    var cards = document.querySelectorAll('.check-card[data-site="' + s.id + '"]');
+    var mustOk = 0, mustWarn = 0, mustNone = 0, recOk = 0, recTotal = 0, total = cards.length;
+    var mustWarnLabels = [];
+    cards.forEach(function(c) {
+      var p = c.dataset.priority;
+      var isOk = c.classList.contains('checked-ok');
+      var isWarn = c.classList.contains('checked-warn');
+      if (p === 'must') {
+        if (isOk) mustOk++; else if (isWarn) { mustWarn++; mustWarnLabels.push(c.dataset.label); } else mustNone++;
+      }
+      if (p === 'rec') { recTotal++; if (isOk) recOk++; }
+    });
+    var mustTotal = mustOk + mustWarn + mustNone;
+    var v = verdicts[s.id];
+    var vTag = v
+      ? '<span class="cs-verdict-tag" style="' + (vBg[v] || '') + '">' + (vMap[v] || v) + '</span>'
+      : '<span class="cs-verdict-tag" style="background:var(--icy);color:var(--desc)">미정</span>';
+
+    html += '<div class="cs-site" style="border-left-color:' + s.color + '">';
+    html += '<div class="cs-header"><div class="cs-name" style="color:' + s.color + ';display:flex;align-items:center;gap:6px;"><span style="font-weight:700;">' + s.kw + '</span><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:.5;flex-shrink:0;"></span><span>' + LABELS[s.id] + '</span></div>' + vTag + '</div>';
+    html += '<div class="cs-row"><span class="lbl">● 필수 통과</span><span class="val ' + (mustWarn > 0 ? 'fail' : mustOk === mustTotal && mustTotal > 0 ? 'pass' : 'pend') + '">' + mustOk + '/' + mustTotal + (mustWarn > 0 ? ' (⚠ ' + mustWarn + '건)' : '') + '</span></div>';
+    if (mustWarnLabels.length) html += '<div class="cs-alert">탈락 위험: ' + mustWarnLabels.join(', ') + '</div>';
+    html += '<div class="cs-row"><span class="lbl">● 권장 충족</span><span class="val ' + (recOk > 0 ? 'pass' : 'pend') + '">' + recOk + '/' + recTotal + '</span></div>';
+    html += '<div class="cs-row"><span class="lbl">전체 체크</span><span class="val">' + (cards.length - document.querySelectorAll('.check-card[data-site="' + s.id + '"]:not(.checked-ok):not(.checked-warn)').length) + '/' + total + '</span></div>';
+    var memo = document.getElementById(s.id + '-verdict-memo');
+    if (memo && memo.value.trim()) {
+      html += '<div class="cs-opinion">' + memo.value.replace(/\n/g, '<br>') + '</div>';
+    }
+    html += '</div>';
+  });
+
+  document.getElementById('compare-content').innerHTML = html;
+}
+</script>
+</body>
+</html>
