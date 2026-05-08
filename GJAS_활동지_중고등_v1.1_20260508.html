@@ -170,9 +170,21 @@ main{padding:0 0 100px}
 
 body{-webkit-user-select:none;user-select:none}
 input,textarea,select{-webkit-user-select:text!important;user-select:text!important}
+
+#expired-screen{display:none;position:fixed;inset:0;background:#1A2830;z-index:9999;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:32px}
+#expired-screen.show{display:flex}
+#expired-screen h2{font-size:22px;color:white;margin-bottom:14px}
+#expired-screen p{font-size:13px;color:rgba(255,255,255,.65);line-height:1.9}
+#expired-screen .exp-badge{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.5);padding:4px 14px;border-radius:3px;margin-top:20px}
 </style>
 </head>
 <body>
+
+<div id="expired-screen" role="alert">
+  <h2>⏰ 접근 기간 만료</h2>
+  <p>이 활동지는 <strong style="color:#FFD87A">2026년 5월 8일</strong>에만 사용 가능합니다.<br><br>문의: via@archivia.kr</p>
+  <div class="exp-badge">ARCHIVIA Architects · 공주건축학교 운영위원회</div>
+</div>
 
 <header class="app-header">
   <div class="header-top">
@@ -1097,6 +1109,14 @@ input,textarea,select{-webkit-user-select:text!important;user-select:text!import
 </div>
 
 <script>
+
+const VALID_DATE = '2026-05-08';
+function getLocalDate(){
+  const d = new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+const IS_VALID = (getLocalDate() === VALID_DATE);
+
 // ── Tab ──
 function showTab(id){
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
@@ -1206,6 +1226,12 @@ function clearCanvas(id){
 
 // ── Init ──
 document.addEventListener('DOMContentLoaded',()=>{
+
+  // 날짜 유효성 체크
+  if (!IS_VALID) {
+    document.getElementById('expired-screen').classList.add('show');
+  }
+
   ['canvas-m4','canvas-m10','canvas-m12'].forEach(initCanvas);
   toggleMission('m1');
 });
