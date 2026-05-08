@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>공간탐정단 — 2026 공주건축학교</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Noto+Serif+KR:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+*,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --icy:#F2F4F7;--ink:#1A1A1A;--charcoal:#2F3E46;--desc:#5A6068;--sand:#C4B5A2;
+  --mona:#2E5894;--mona-l:#D6E0EE;
+  --arefi:#6A5D7B;--arefi-l:#E6E1ED;
+  --chita:#004D40;--chita-l:#D5E8E4;
+  --dark-header:#1A2830;--card-r:12px;
+}
+html,body{margin:0;padding:0;background:var(--icy);font-family:'Noto Sans KR',sans-serif;color:var(--ink);font-size:14px}
+/* ── Header ── */
+.app-header{position:sticky;top:0;z-index:100;background:var(--dark-header)}
+.header-top{display:flex;align-items:center;justify-content:space-between;padding:13px 16px 10px}
+.header-brand{display:flex;flex-direction:column}
+.header-label{font-size:9.5px;letter-spacing:2px;color:rgba(255,255,255,.4);font-weight:500;margin-bottom:2px}
+.header-title{font-size:16px;font-weight:700;color:white;letter-spacing:-.2px}
+.progress-wrap{text-align:right}
+.progress-num{font-size:18px;font-weight:700;color:white;line-height:1}
+.progress-label{font-size:9.5px;color:rgba(255,255,255,.4);letter-spacing:1px}
+.progress-bar-wrap{height:3px;background:rgba(255,255,255,.1)}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--mona),var(--arefi),var(--chita));width:0%;transition:width .4s}
+.tab-nav{display:flex;border-top:1px solid rgba(255,255,255,.08)}
+.tab-btn{flex:1;padding:10px 6px;background:transparent;border:none;color:rgba(255,255,255,.4);font-family:inherit;font-size:11px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;text-align:center}
+.tab-btn.active{color:white;font-weight:700}
+.tab-btn.t-mona.active{border-bottom-color:var(--mona)}
+.tab-btn.t-arefi.active{border-bottom-color:var(--arefi)}
+.tab-btn.t-chita.active{border-bottom-color:var(--chita)}
+.tab-btn .tab-tag{display:block;font-size:9px;letter-spacing:1px;margin-bottom:3px;color:rgba(255,255,255,.3)}
+.tab-btn.active .tab-tag{color:rgba(255,255,255,.55)}
+/* ── Main ── */
+main{padding:0 0 100px}
+.tab-content{display:none}
+.tab-content.active{display:block}
+/* ── Location Header ── */
+.loc-header{padding:16px 14px 0}
+.loc-card{background:white;border-radius:var(--card-r);overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:2px}
+.loc-stripe{height:5px}
+.loc-stripe.mona{background:linear-gradient(90deg,var(--mona),#5b8fd4)}
+.loc-stripe.arefi{background:linear-gradient(90deg,var(--arefi),#9b8fb0)}
+.loc-stripe.chita{background:linear-gradient(90deg,var(--chita),#2d8a6f)}
+.loc-body{padding:14px 16px}
+.loc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.loc-name{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:700;color:var(--charcoal)}
+.loc-concept{font-size:13px;font-weight:600;margin-top:2px}
+.loc-sub{font-size:11px;color:var(--desc);margin-top:2px}
+.loc-time-box{background:var(--icy);border-radius:8px;padding:6px 12px;text-align:right}
+.loc-time-num{font-size:20px;font-weight:700;color:var(--charcoal);line-height:1}
+.loc-time-label{font-size:9px;color:var(--desc);letter-spacing:.5px}
+.loc-missions{display:flex;gap:6px;flex-wrap:wrap}
+.loc-pill{font-size:10.5px;background:var(--icy);border-radius:6px;padding:4px 10px;color:var(--desc);font-weight:500}
+/* ── Mission Section ── */
+.mission-section{padding:10px 14px 0}
+.mission-card{background:white;border-radius:var(--card-r);box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:10px;overflow:hidden;transition:opacity .3s}
+.mission-card.done{opacity:.65}
+.mission-head{display:grid;grid-template-columns:48px 1fr 20px;gap:10px;align-items:center;padding:13px 14px;cursor:pointer}
+.m-num-wrap{display:flex;flex-direction:column;align-items:center;gap:2px}
+.m-num{font-size:22px;font-weight:700;color:var(--charcoal);line-height:1}
+.m-tag{font-size:9px;letter-spacing:1px;font-weight:600;padding:2px 6px;border-radius:4px}
+.m-tag.mona-tag{background:var(--mona-l);color:var(--mona)}
+.m-tag.arefi-tag{background:var(--arefi-l);color:var(--arefi)}
+.m-tag.chita-tag{background:var(--chita-l);color:var(--chita)}
+.mission-card.done .m-num{color:var(--sand)}
+.m-title{font-size:14.5px;font-weight:700;color:var(--charcoal);margin-bottom:3px;line-height:1.3}
+.m-meta{display:flex;gap:8px;align-items:center}
+.m-time{font-size:11px;font-weight:600;color:var(--desc)}
+.m-theme{font-size:10px;color:var(--desc);background:var(--icy);padding:2px 7px;border-radius:4px}
+.m-arrow{font-size:12px;color:var(--sand);transition:transform .2s}
+.mission-head.open .m-arrow{transform:rotate(180deg)}
+/* ── Mission Body ── */
+.mission-body{display:none;border-top:1px solid #F0EDE8}
+.mission-body.open{display:block}
+.body-inner{padding:16px}
+/* ── Concept Box ── */
+.concept-box{background:var(--icy);border-left:3px solid var(--chita);border-radius:0 8px 8px 0;padding:12px 14px;margin-bottom:14px;font-size:13px;color:var(--charcoal);line-height:1.65}
+.concept-box.mona-box{border-left-color:var(--mona)}
+.concept-box.arefi-box{border-left-color:var(--arefi)}
+.concept-box.chita-box{border-left-color:var(--chita)}
+.concept-kw{font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:1.5px;color:var(--desc);margin-bottom:5px}
+/* ── Student Sub ── */
+.student-sub{margin-top:12px;border-radius:6px;overflow:hidden}
+.sub-header{display:flex;align-items:center;gap:5px;padding:5px 10px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.8px;text-transform:uppercase}
+.sub-header.elem{background:#D5E8E4;color:#004D40;border-left:3px solid #004D40}
+.sub-header.mid{background:var(--arefi-l);color:var(--arefi);border-left:3px solid var(--arefi)}
+.sub-body{padding:4px 10px 8px;background:rgba(255,255,255,.55)}
+.sub-check{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--ink);line-height:1.5;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(0,0,0,.04)}
+.sub-check:last-child{border-bottom:none}
+.mini-box{width:15px;height:15px;border:1.5px solid #A8A2A0;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:white;transition:all .15s}
+.mini-box.on{background:#004D40;border-color:#004D40}
+.mini-box.on::after{content:"✓";color:white;font-size:9px;font-weight:700}
+/* ── Fields ── */
+.field-label{font-size:12px;font-weight:600;color:var(--charcoal);margin:12px 0 6px;display:flex;align-items:baseline;gap:6px}
+.field-label span{font-size:10.5px;font-weight:400;color:var(--desc)}
+.field{width:100%;border:1px solid #E0DCD6;border-radius:8px;padding:10px 12px;font-family:inherit;font-size:13px;color:var(--ink);background:white;resize:none;line-height:1.6;-webkit-appearance:none}
+.field:focus{outline:none;border-color:var(--charcoal)}
+.field-select{width:100%;border:1px solid #E0DCD6;border-radius:8px;padding:10px 12px;font-family:inherit;font-size:13px;color:var(--ink);background:white;-webkit-appearance:none}
+.field.tall{min-height:80px}
+/* ── Checklist ── */
+.checklist{margin-bottom:14px}
+.check-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #F5F2EE;cursor:pointer;-webkit-user-select:none;user-select:none}
+.check-row:last-child{border-bottom:none}
+.check-box{width:20px;height:20px;border:2px solid #C8CDD3;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;transition:all .15s}
+.check-row.checked .check-box{background:var(--charcoal);border-color:var(--charcoal)}
+.check-row.checked .check-box::after{content:"✓";color:white;font-size:11px;font-weight:700}
+.check-label{font-size:13px;color:var(--ink);line-height:1.5}
+.check-sub{font-size:11px;color:var(--desc);display:block;margin-top:1px}
+/* ── Analysis ── */
+.analysis-row{display:grid;grid-template-columns:64px 1fr;gap:8px;margin-bottom:8px;align-items:start}
+.ar-label{font-size:11px;font-weight:600;color:var(--desc);padding-top:12px}
+.ar-input{}
+/* ── Num List ── */
+.num-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.num-item{display:flex;align-items:flex-start;gap:10px}
+.num-badge{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;margin-top:8px}
+.num-badge.mona-badge{background:var(--mona)}
+.num-badge.arefi-badge{background:var(--arefi)}
+.num-badge.chita-badge{background:var(--chita)}
+/* ── Rating ── */
+.rating-row{display:flex;gap:8px;margin-bottom:14px;justify-content:space-between}
+.rating-item{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;flex:1}
+.rating-circle{width:36px;height:36px;border-radius:50%;border:2px solid #E0DCD6;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--desc);transition:all .15s}
+.rating-text{font-size:10px;color:var(--desc)}
+.rating-item.sel-mona .rating-circle{background:var(--mona);border-color:var(--mona);color:white}
+.rating-item.sel-arefi .rating-circle{background:var(--arefi);border-color:var(--arefi);color:white}
+.rating-item.sel-chita .rating-circle{background:var(--chita);border-color:var(--chita);color:white}
+/* ── Photo ── */
+.photo-zone{margin-bottom:14px}
+.photo-label-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;border:1.5px dashed #C8CDD3;border-radius:8px;cursor:pointer;font-size:13px;color:var(--desc);font-weight:500}
+.ph-icon{font-size:18px}
+.photo-preview{display:none;width:100%;border-radius:8px;margin-top:8px}
+.or-divider{text-align:center;font-size:11px;color:var(--desc);margin:8px 0}
+/* ── Sketch ── */
+.sketch-wrap{background:#FAFAF8;border-radius:8px;overflow:hidden;margin-bottom:14px}
+.sketch-canvas{display:block;width:100%;touch-action:none;background:white}
+.sketch-tools{display:flex;align-items:center;gap:10px;padding:8px 12px}
+.color-dot{width:22px;height:22px;border-radius:50%;cursor:pointer;opacity:.7;transition:all .2s;flex-shrink:0}
+.color-dot.sel{opacity:1;transform:scale(1.2);box-shadow:0 0 0 2px white,0 0 0 3px var(--charcoal)}
+.clear-btn{margin-left:auto;font-size:11px;padding:4px 10px;border:1px solid #E0DCD6;border-radius:6px;background:white;cursor:pointer;font-family:inherit;color:var(--desc)}
+/* ── Compare Grid ── */
+.compare-grid{display:grid;grid-template-columns:70px 1fr 1fr 1fr;gap:1px;background:#E0DCD6;border-radius:8px;overflow:hidden;margin-bottom:14px}
+.cg-head{padding:8px 6px;text-align:center;font-size:11px;font-weight:700;color:white;line-height:1.3}
+.cg-item{padding:6px;background:white}
+.cg-item textarea{width:100%;border:none;font-family:inherit;font-size:12px;color:var(--ink);resize:none;background:transparent;outline:none}
+.label-item{background:#FAFAF8;font-size:11px;font-weight:600;color:var(--charcoal);display:flex;align-items:center;padding:8px 8px}
+/* ── Insight Box ── */
+.insight-box{background:var(--icy);border-radius:8px;padding:12px;margin-bottom:10px}
+.insight-kw{font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:1px;color:var(--desc);margin-bottom:4px}
+.insight-text{font-size:12px;color:var(--charcoal);line-height:1.6}
+/* ── Done Button ── */
+.done-btn{width:100%;padding:13px;border-radius:8px;border:none;font-family:inherit;font-size:13px;font-weight:700;color:white;cursor:pointer;margin-top:4px}
+.done-btn.mona-btn{background:var(--mona)}
+.done-btn.arefi-btn{background:var(--arefi)}
+.done-btn.chita-btn{background:var(--chita)}
+/* ── Lunch / Break Card ── */
+.break-card{margin:10px 14px;background:white;border-radius:var(--card-r);padding:14px 16px;font-size:13px;color:var(--charcoal);border-left:4px solid var(--sand)}
+.break-card b{font-size:15px}
+/* ── Final Card ── */
+.final-card{margin:20px 14px;background:var(--charcoal);border-radius:var(--card-r);padding:28px 20px;text-align:center;color:white}
+.final-card h2{font-size:20px;margin:0 0 10px}
+.final-card p{font-size:13px;line-height:1.8;margin:0 0 16px;opacity:.8}
+.finish-btn{padding:10px 28px;border-radius:20px;border:none;background:white;color:var(--charcoal);font-family:inherit;font-size:14px;font-weight:700;cursor:pointer}
+/* ── Footer ── */
+.doc-footer{text-align:center;font-size:10px;color:var(--desc);padding:20px 16px;font-family:'IBM Plex Mono',monospace;letter-spacing:.5px}
+
+body{-webkit-user-select:none;user-select:none}
+input,textarea,select{-webkit-user-select:text!important;user-select:text!important}
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-top">
+    <div class="header-brand">
+      <div class="header-label">2026 GJAS · 공주건축학교</div>
+      <div class="header-title">🔍 공간탐정단</div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-num" id="done-count">0</div>
+      <div class="progress-label">/15 완료</div>
+    </div>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="prog-bar"></div></div>
+  <nav class="tab-nav">
+    <button class="tab-btn t-mona active" data-tab="tab-mona" onclick="showTab('tab-mona')">
+      <span class="tab-tag">STOP 01 · 품음</span>모나밸리
+    </button>
+    <button class="tab-btn t-arefi" data-tab="tab-arefi" onclick="showTab('tab-arefi')">
+      <span class="tab-tag">STOP 02 · 오름</span>아레피
+    </button>
+    <button class="tab-btn t-chita" data-tab="tab-chita" onclick="showTab('tab-chita')">
+      <span class="tab-tag">STOP 03 · 열림</span>치타누오바
+    </button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ═══════════════════════════════════════════
+     STOP 01 — 모나밸리 MONAVALLEY (품음)
+     11:00~12:30 · 60분 활동 + 점심
+════════════════════════════════════════════ -->
+<div class="tab-content active" id="tab-mona">
+
+  <div class="loc-header">
+    <div class="loc-card">
+      <div class="loc-stripe mona"></div>
+      <div class="loc-body">
+        <div class="loc-top">
+          <div>
+            <div class="loc-name">모나밸리 MONAVALLEY</div>
+            <div class="loc-concept" style="color:var(--mona)">품음 — 건물이 물과 정원을 안으로 끌어안다</div>
+            <div class="loc-sub">충남 아산시 순천향로 · 복합문화공간 · 워터가든+갤러리</div>
+          </div>
+          <div class="loc-time-box">
+            <div class="loc-time-num">60분</div>
+            <div class="loc-time-label">활동시간</div>
+          </div>
+        </div>
+        <div class="loc-missions">
+          <span class="loc-pill">🚌 11:00 도착</span>
+          <span class="loc-pill">📋 미션 5개</span>
+          <span class="loc-pill">🍱 12:30 점심</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mission-section">
+
+    <!-- M1 워터가든 분석 -->
+    <div class="mission-card" id="card-m1">
+      <div class="mission-head" onclick="toggleMission('m1')">
+        <div class="m-num-wrap">
+          <div class="m-num">01</div>
+          <div class="m-tag mona-tag">품음</div>
+        </div>
+        <div class="m-info">
+          <div class="m-title">워터가든 분석</div>
+          <div class="m-meta"><span class="m-time">⏱ 10분</span><span class="m-theme">공간 분석</span></div>
+        </div>
+        <div class="m-arrow" id="ti-m1">▼</div>
+      </div>
+      <div class="mission-body" id="body-m1">
+        <div class="body-inner">
+          <div class="concept-box mona-box">
+            <div class="concept-kw">MISSION BRIEF</div>
+            모나밸리의 핵심은 건물 한가운데의 물(중정 워터가든)입니다.<br>물이 왜 그 자리에 있는지 — 건축적으로 생각해보세요.
+          </div>
+          <div class="field-label">📸 워터가든 전체 사진</div>
+          <div class="photo-zone">
+            <label class="photo-label-btn" for="p-m1"><span class="ph-icon">📷</span>워터가든 찍기</label>
+            <input type="file" id="p-m1" accept="image/*" capture="environment" style="display:none" onchange="showPreview(this,'prev-m1')">
+            <a href="https://drive.google.com/drive/folders/14AWQJLdAcllW0DGQZ5JE_mh6-KI9nMQx" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:10px;border:1px solid #C8CDD3;border-radius:8px;font-size:12px;color:#5A6068;text-decoration:none;margin-top:6px;background:#FAFAF8;">
+              📁 Drive에 저장 — M01 워터가든분석
+            </a>
+            <img id="prev-m1" class="photo-preview">
+          </div>
+          <div class="field-label">✏️ 물이 이 자리에 있는 이유 — 건축적으로 설명하면?<span>힌트: 공간을 어떻게 나누는가? 소리·온도·시각에 어떤 영향을?</span></div>
+          <textarea class="field tall" placeholder="물은 이 공간에서 ..." rows="3"></textarea>
+          <div class="field-label">📋 물이 만들어내는 '경계' 체크</div>
+          <div class="checklist">
+            <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">내부와 외부를 나눈다</div></div>
+            <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">카페 공간과 갤러리를 나눈다</div></div>
+            <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">소리 환경을 만들어낸다</div></div>
+            <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">시선을 끌어당기는 포인트가 된다</div></div>
+          </div>
+          <div class="student-sub">
+            <div class="sub-header elem">🧒 초등 5~6학년 기준</div>
+            <div class="sub-body">
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>물이 건물 안에 있다는 게 신기하게 느껴지는가</div>
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>하늘은 열려있는데 건물 안이라는 느낌이 드는가</div>
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>분위기를 한 단어로 표현할 수 있는가</div>
+            </div>
+            <div class="sub-header mid">📐 중학생·고등학생 기준</div>
+            <div class="sub-body">
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>동선이 물을 중심으로 구성되어 있는지 관찰했는가</div>
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>물의 위치 선택이 건축적 의도임을 설명할 수 있는가</div>
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>중정 구조와 외부 공간의 관계를 서술할 수 있는가</div>
+            </div>
+          </div>
+          <button class="done-btn mona-btn" onclick="completeMission('m1')">✓ 미션 01 완료</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- M2 브랜딩 = 공간 언어 -->
+    <div class="mission-card" id="card-m2">
+      <div class="mission-head" onclick="toggleMission('m2')">
+        <div class="m-num-wrap">
+          <div class="m-num">02</div>
+          <div class="m-tag mona-tag">품음</div>
+        </div>
+        <div class="m-info">
+          <div class="m-title">브랜딩 = 공간 언어</div>
+          <div class="m-meta"><span class="m-time">⏱ 10분</span><span class="m-theme">브랜드 분석</span></div>
+        </div>
+        <div class="m-arrow" id="ti-m2">▼</div>
+      </div>
+      <div class="mission-body" id="body-m2">
+        <div class="body-inner">
+          <div class="concept-box mona-box">
+            <div class="concept-kw">MISSION BRIEF</div>
+            '모나밸리(MONAVALLEY)'는 물과 계곡·자연을 담은 이름입니다.<br>이름이 공간에 어떻게 반영되어 있는지 분석해보세요.<br>브랜딩이 성공했다면 이름·색·재료·공간이 같은 이야기를 해야 합니다.
+          </div>
+          <div class="field-label">🔍 브랜딩 일관성 분석</div>
+          <div class="analysis-row">
+            <div class="ar-label">이름과 공간</div>
+            <div class="ar-input"><textarea class="field" placeholder="이름 '모나밸리'가 공간에서 어떻게 보이는가?" rows="2"></textarea></div>
+          </div>
+          <div class="analysis-row">
+            <div class="ar-label">주요 색상</div>
+            <div class="ar-input"><textarea class="field" placeholder="공간의 주된 색은? 이름과 어울리는가?" rows="2"></textarea></div>
+          </div>
+          <div class="analysis-row">
+            <div class="ar-label">재료 선택</div>
+            <div class="ar-input"><textarea class="field" placeholder="자연 소재가 많은가? 어떤 재료?" rows="2"></textarea></div>
+          </div>
+          <div class="field-label">📸 브랜딩이 가장 잘 느껴지는 곳</div>
+          <div class="photo-zone">
+            <label class="photo-label-btn" for="p-m2"><span class="ph-icon">📷</span>브랜딩 포인트 찍기</label>
+            <input type="file" id="p-m2" accept="image/*" capture="environment" style="display:none" onchange="showPreview(this,'prev-m2')">
+            <a href="https://drive.google.com/drive/folders/1KAGux-_1IqOmoAFJ_Ld5-LmLLQE4d7Im" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:10px;border:1px solid #C8CDD3;border-radius:8px;font-size:12px;color:#5A6068;text-decoration:none;margin-top:6px;background:#FAFAF8;">
+              📁 Drive에 저장 — M02 브랜딩분석
+            </a>
+            <img id="prev-m2" class="photo-preview">
+          </div>
+          <div class="field-label">✏️ 브랜딩 성공 여부 평가</div>
+          <textarea class="field tall" placeholder="이름과 공간이 일치하는가? 아쉬운 점은?" rows="3"></textarea>
+          <button class="done-btn mona-btn" onclick="completeMission('m2')">✓ 미션 02 완료</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- M3 감각 분석 -->
+    <div class="mission-card" id="card-m3">
+      <div class="mission-head" onclick="toggleMission('m3')">
+        <div class="m-num-wrap">
+          <div class="m-num">03</div>
+          <div class="m-tag mona-tag">품음</div>
+        </div>
+        <div class="m-info">
+          <div class="m-title">감각 분석 — 빛·소리·재료</div>
+          <div class="m-meta"><span class="m-time">⏱ 8분</span><span class="m-theme">감각·서술</span></div>
+        </div>
+        <div class="m-arrow" id="ti-m3">▼</div>
+      </div>
+      <div class="mission-body" id="body-m3">
+        <div class="body-inner">
+          <div class="concept-box mona-box">
+            <div class="concept-kw">MISSION BRIEF</div>
+            건축은 눈으로만 보는 게 아닙니다.<br>빛의 방향, 소리의 울림, 재료의 촉감까지 — 모두 설계자의 선택입니다.
+          </div>
+          <div class="field-label">💡 빛은 어떻게 들어오나요?</div>
+          <div class="analysis-row">
+            <div class="ar-label">방향</div>
+            <div class="ar-input"><textarea class="field" placeholder="어느 방향에서? 창 크기는?" rows="2"></textarea></div>
+          </div>
+          <div class="analysis-row">
+            <div class="ar-label">느낌</div>
+            <div class="ar-input">
+              <select class="field-select">
+                <option value="">선택</option>
+                <option>매우 밝고 직접적</option>
+                <option>은은하고 확산된 느낌</option>
+                <option>어둡고 차분한 느낌</option>
+                <option>시간대별로 변할 것 같음</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-label" style="margin-top:4px">🔊 소리는 어떻게 느껴지나요?</div>
+          <div class="analysis-row">
+            <div class="ar-label">울림</div>
+            <div class="ar-input">
+              <select class="field-select">
+                <option value="">선택</option>
+                <option>소리가 많이 울린다 (높은 천장)</option>
+                <option>적당히 흡수된다</option>
+                <option>물소리가 들린다</option>
+                <option>매우 조용하다</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-label" style="margin-top:4px">🖐 가장 인상적인 재료는?</div>
+          <textarea class="field" placeholder="재료 이름, 위치, 촉감/시각 인상을 적어보세요..." rows="2"></textarea>
+          <button class="done-btn mona-btn" onclick="completeMission('m3')">✓ 미션 03 완료</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- M4 공간별 재료 스케치 -->
+    <div class="mission-card" id="card-m4">
+      <div class="mission-head" onclick="toggleMission('m4')">
+        <div class="m-num-wrap">
+          <div class="m-num">04</div>
+          <div class="m-tag mona-tag">품음</div>
+        </div>
+        <div class="m-info">
+          <div class="m-title">공간별 재료 스케치</div>
+          <div class="m-meta"><span class="m-time">⏱ 12분</span><span class="m-theme">스케치·매핑</span></div>
+        </div>
+        <div class="m-arrow" id="ti-m4">▼</div>
+      </div>
+      <div class="mission-body" id="body-m4">
+        <div class="body-inner">
+          <div class="concept-box mona-box">
+            <div class="concept-kw">MISSION BRIEF</div>
+            모나밸리는 여러 공간이 연결된 복합 건물입니다.<br>각 공간에서 어떤 재료가 주로 쓰였는지 기록해보세요.
+          </div>
+          <div class="field-label">📝 공간별 재료 기록</div>
+          <div class="analysis-row">
+            <div class="ar-label">카페 내부</div>
+            <div class="ar-input"><textarea class="field" placeholder="바닥·벽·천장·가구..." rows="2"></textarea></div>
+          </div>
+          <div class="analysis-row">
+            <div class="ar-label">워터가든</div>
+            <div class="ar-input"><textarea class="field" placeholder="물·바닥·경계 재료..." rows="2"></textarea></div>
+          </div>
+          <div class="analysis-row">
+            <div class="ar-label">야외·조각공원</div>
+            <div class="ar-input"><textarea class="field" placeholder="바닥·구조물·식재..." rows="2"></textarea></div>
+          </div>
+          <div class="analysis-row">
+            <div class="ar-label">갤러리</div>
+            <div class="ar-input"><textarea class="field" placeholder="벽·바닥·조명 방식..." rows="2"></textarea></div>
+          </div>
+          <div class="field-label">✏️ 공간 배치 약도 스케치<span>(각 공간의 위치 관계를 간략히)</span></div>
+          <div class="sketch-wrap">
+            <canvas id="canvas-m4" class="sketch-canvas" width="640" height="360"></canvas>
+            <div class="sketch-tools">
+              <div class="color-dot sel" style="background:#2F3E46" onclick="setColor('#2F3E46',this)"></div>
+              <div class="color-dot" style="background:#2E5894" onclick="setColor('#2E5894',this)"></div>
+              <div class="color-dot" style="background:#004D40" onclick="setColor('#004D40',this)"></div>
+              <div class="color-dot" style="background:#6A5D7B" onclick="setColor('#6A5D7B',this)"></div>
+              <button class="clear-btn" onclick="clearCanvas('canvas-m4')">지우기</button>
+            </div>
+          </div>
+          <button class="done-btn mona-btn" onclick="completeMission('m4')">✓ 미션 04 완료</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- M5 솔직한 질문들 -->
+    <div class="mission-card" id="card-m5">
+      <div class="mission-head" onclick="toggleMission('m5')">
+        <div class="m-num-wrap">
+          <div class="m-num">05</div>
+          <div class="m-tag mona-tag">품음</div>
+        </div>
+        <div class="m-info">
+          <div class="m-title">솔직한 질문들</div>
+          <div class="m-meta"><span class="m-time">⏱ 9분</span><span class="m-theme">비판적 사고</span></div>
+        </div>
+        <div class="m-arrow" id="ti-m5">▼</div>
+      </div>
+      <div class="mission-body" id="body-m5">
+        <div class="body-inner">
+          <div class="concept-box mona-box">
+            <div class="concept-kw">MISSION BRIEF</div>
+            건축가는 "왜?"를 멈추지 않습니다.<br>좋은 공간은 사람을 오게 만들고, 머물게 하고, 다시 오게 합니다.
+          </div>
+          <div class="field-label">💰 커피 한 잔 가격은 얼마쯤 일까요?<span>이유와 함께</span></div>
+          <textarea class="field" placeholder="약 _____원 / 이유: ..." rows="2"></textarea>
+          <div class="field-label">🤔 이 공간이 사람을 끌어당기는 힘은?<span>3가지</span></div>
+          <div class="num-list">
+            <div class="num-item"><div class="num-badge mona-badge">1</div><textarea class="field" placeholder="..." rows="1"></textarea></div>
+            <div class="num-item"><div class="num-badge mona-badge">2</div><textarea class="field" placeholder="..." rows="1"></textarea></div>
+            <div class="num-item"><div class="num-badge mona-badge">3</div><textarea class="field" placeholder="..." rows="1"></textarea></div>
+          </div>
+          <div class="field-label">❌ 단점이나 아쉬운 점은?</div>
+          <textarea class="field" placeholder="개선했으면 좋겠는 부분: ..." rows="2"></textarea>
+          <div class="field-label">⭐ 종합 평가 (1~5점)</div>
+          <div class="rating-row" id="rate-m5">
+            <div class="rating-item" onclick="setRating('m5',1,'mona',this)"><div class="rating-circle">1</div><div class="rating-text">별로</div></div>
+            <div class="rating-item" onclick="setRating('m5',2,'mona',this)"><div class="rating-circle">2</div><div class="rating-text">보통</div></div>
+            <div class="rating-item" onclick="setRating('m5',3,'mona',this)"><div class="rating-circle">3</div><div class="rating-text">좋음</div></div>
+            <div class="rating-item" onclick="setRating('m5',4,'mona',this)"><div class="rating-circle">4</div><div class="rating-text">훌륭</div></div>
+            <div class="rating-item" onclick="setRating('m5',5,'mona',this)"><div class="rating-circle">5</div><div class="rating-text">최고</div></div>
+          </div>
+          <button class="done-btn mona-btn" onclick="completeMission('m5')">✓ 미션 05 완료</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="break-card">
+    🍱 <b>점심 & 이동</b><br>
+    신리성지 잔디밭에서 도시락 또는 모나밸리 베이커리 🥐<br>
+    쉬면서 오늘 기록한 것들 옆 사람과 나눠보세요. 오후엔 아레피로 이동합니다.
+  </div>
+
+</div><!-- /tab-mona -->
+
+
+<!-- ═══════════════════════════════════════════
+     STOP 02 — 아레피 ALEFFEE (오름)
+     13:00~14:40 · 100분 활동
+════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-arefi">
+
+  <div class="loc-header">
+    <div class="loc-card">
+      <div class="loc-stripe arefi"></div>
+      <div class="loc-body">
+        <div class="loc-top">
+          <div>
+            <div class="loc-name">아레피 ALEFFEE</div>
+            <div class="loc-concept" style="color:var(--arefi)">오름 — 수면 위로 솟은 건물, 층을 오를수록 열리는 세계</div>
+            <div class="loc-sub">충남 아산시 영인면 · 영인저수지 뷰 · 세계 건축상 수상작</div>
+          </div>
+          <div class="loc-time-box">
+            <div class="loc-time-num">100분</div>
+            <div class="loc-time-label">활동시간</div>
+          </div>
+        </div>
+        <div class="loc-missions">
+          <span class="loc-pill">🚌 13:00 도착</span>
+          <span class="loc-pill">📋 미션 5개</span>
+          <span class="loc-pill">🏆 수상 건축</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mission-section">
+
+    <!-- M6 외부 읽기 — 물 위의 건물 -->
+    <div class="mission-card" id="card-m6">
+      <div class="mission-head" onclick="toggleMission('m6')">
+        <div class="m-num-wrap">
+          <div class="m-num">06</div>
+          <div class="m-tag arefi-tag">오름</div>
+        </div>
+        <div class="m-info">
+          <div class="m-title">외부 읽기 — 물 위의 건물</div>
+          <div class="m-meta"><span class="m-time">⏱ 8분</span><span class="m-theme">관찰·기록</span></div>
+        </div>
+        <div class="m-arrow" id="ti-m6">▼</div>
+      </div>
+      <div class="mission-body" id="body-m6">
+        <div class="body-inner">
+          <div class="concept-box arefi-box">
+            <div class="concept-kw">MISSION BRIEF</div>
+            건물에 들어가기 전, 수변에서 건물 전체를 먼저 읽어보세요.<br>이 건물은 땅 위가 아니라 물 옆·물 위에 서 있습니다.<br>건물과 물의 관계에 집중하세요.
+          </div>
+          <div class="field-label">📋 외부 관찰 체크리스트</div>
+          <div class="checklist">
+            <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">건물이 저수지와 어떤 관계에 있는지 파악했다<span class="check-sub">물에 인접한가, 물 위에 있는가, 물을 향하는가?</span></div></div>
+            <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">3개 층의 구성이 외부에서 보이는가 확인했다<span class="check-sub">1F·2F·3F가 어떻게 쌓여 있는가?</span></div></div>
+            <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">외벽의 주요 재료를 확인했다<span class="check-sub">콘크리트·유리·금속·목재 중 무엇이 주인가?</span></div></div>
+            <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">건물이 수면에 반영(반사)되는지 관찰했다</div></div>
+          </div>
+          <div class="field-label">📸 수변에서 건물 전체가 보이는 사진</div>
+          <div class="photo-zone">
+            <label class="photo-label-btn" for="p-m6"><span class="ph-icon">📷</span>외부 전경 찍기</label>
+            <input type="file" id="p-m6" accept="image/*" capture="environment" style="display:none" onchange="showPreview(this,'prev-m6')">
+            <a href="https://drive.google.com/drive/folders/1XnD2PSepqWVKKnGDONPj4FHUh8p7Di26" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:10px;border:1px solid #C8CDD3;border-radius:8px;font-size:12px;color:#5A6068;text-decoration:none;margin-top:6px;background:#FAFAF8;">
+              📁 Drive에 저장 — M06 외부읽기
+            </a>
+            <img id="prev-m6" class="photo-preview">
+          </div>
+          <div class="field-label">✏️ 건물을 한 문장으로 묘사하면?</div>
+          <textarea class="field" placeholder="이 건물은 ..." rows="2"></textarea>
+          <div class="student-sub">
+            <div class="sub-header elem">🧒 초등 5~6학년 기준</div>
+            <div class="sub-body">
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>건물이 물 옆에 있다는 게 특별하게 느껴지는가</div>
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>건물이 높다/낮다, 넓다/좁다를 말로 표현할 수 있는가</div>
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>건물 색깔과 재료를 한 가지 이상 말할 수 있는가</div>
+            </div>
+            <div class="sub-header mid">📐 중학생·고등학생 기준</div>
+            <div class="sub-body">
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>건물과 수면의 관계를 건축적 용어로 설명할 수 있는가</div>
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>3층 구성의 수직적 구조를 외부에서 읽어냈는가</div>
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>이 건물이 세계 건축상을 받은 이유를 외부만으로 추측할 수 있는가</div>
+            </div>
+          </div>
+          <button class="done-btn arefi-btn" onclick="completeMission('m6')">✓ 미션 06 완료</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- M7 수직 동선 체험 -->
+    <div class="mission-card" id="card-m7">
+      <div class="mission-head" onclick="toggleMission('m7')">
+        <div class="m-num-wrap">
+          <div class="m-num">07</div>
+          <div class="m-tag arefi-tag">오름</div>
+        </div>
+        <div class="m-info">
+          <div class="m-title">수직 동선 체험 — 1F→2F→3F</div>
+          <div class="m-meta"><span class="m-time">⏱ 15분</span><span class="m-theme">체험·기록</span></div>
+        </div>
+        <div class="m-arrow" id="ti-m7">▼</div>
+      </div>
+      <div class="mission-body" id="body-m7">
+        <div class="body-inner">
+          <div class="concept-box arefi-box">
+            <div class="concept-kw">MISSION BRIEF</div>
+            아레피는 층을 오를수록 공간이 달라집니다.<br>1층에서 시작해 루프탑까지 직접 이동하면서 각 층의 변화를 기록하세요.<br>올라갈수록 무엇이 어떻게 바뀌는지가 이 건물의 핵심입니다.
+          </div>
+          <div class="field-label">📝 층별 공간 변화 기록</div>
+          <div class="analysis-row">
+            <div class="ar-label">1F<br><span style="font-size:9px;color:var(--desc)">베이커리·키즈존</span></div>
+            <div class="ar-input"><textarea class="field" placeholder="분위기, 천장 높이, 재료, 뷰, 사람들의 행동..." rows="3"></textarea></div>
+          </div>
+          <div class="analysis-row">
+            <div class="ar-label">2F<br><span style="font-size:9px;color:var(--desc)">비즈니스·호수뷰</span></div>
+            <div class="ar-input"><textarea class="field" placeholder="1F와 무엇이 달라졌는가? 저수지가 어떻게 보이는가?" rows="3"></textarea></div>
+          </div>
+          <div class="analysis-row">
+            <div class="ar-label">3F<br><span style="font-size:9px;color:var(--desc)">루프탑·갤러리·온돌</span></div>
+            <div class="ar-input"><textarea class="field" placeholder="가장 크게 달라진 것은? 하늘과 물이 어떻게 보이는가?" rows="3"></textarea></div>
+          </div>
+          <div class="field-label">📸 각 층에서 가장 인상적인 장면 사진</div>
+          <div class="photo-zone">
+            <label class="photo-label-btn" for="p-m7"><span class="ph-icon">📷</span>층별 사진 찍기</label>
+            <input type="file" id="p-m7" accept="image/*" capture="environment" style="display:none" onchange="showPreview(this,'prev-m7')">
+            <a href="https://drive.google.com/drive/folders/1I7A4d9K7kkkxps_2eXt_AqBXSWkNk_rk" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:10px;border:1px solid #C8CDD3;border-radius:8px;font-size:12px;color:#5A6068;text-decoration:none;margin-top:6px;background:#FAFAF8;">
+              📁 Drive에 저장 — M07 수직동선체험
+            </a>
+            <img id="prev-m7" class="photo-preview">
+          </div>
+          <div class="field-label">✏️ 올라가면서 가장 크게 달라진 것은?</div>
+          <textarea class="field" placeholder="층을 오를수록 변하는 것: 뷰, 소리, 재료, 사람, 분위기..." rows="2"></textarea>
+          <button class="done-btn arefi-btn" onclick="completeMission('m7')">✓ 미션 07 완료</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- M8 층별 감각 비교 -->
+    <div class="mission-card" id="card-m8">
+      <div class="mission-head" onclick="toggleMission('m8')">
+        <div class="m-num-wrap">
+          <div class="m-num">08</div>
+          <div class="m-tag arefi-tag">오름</div>
+        </div>
+        <div class="m-info">
+          <div class="m-title">층별 감각 비교</div>
+          <div class="m-meta"><span class="m-time">⏱ 12분</span><span class="m-theme">분석·비교</span></div>
+        </div>
+        <div class="m-arrow" id="ti-m8">▼</div>
+      </div>
+      <div class="mission-body" id="body-m8">
+        <div class="body-inner">
+          <div class="concept-box arefi-box">
+            <div class="concept-kw">MISSION BRIEF</div>
+            같은 건물인데 층마다 다른 경험을 만드는 것이 건축의 힘입니다.<br>빛·뷰·재료·소리 4가지를 층별로 비교해보세요.
+          </div>
+          <div class="field-label">📊 층별 비교 분석</div>
+          <div class="compare-grid" style="grid-template-columns:56px 1fr 1fr 1fr">
+            <div class="cg-head" style="background:transparent"></div>
+            <div class="cg-head" style="background:var(--arefi)">1F</div>
+            <div class="cg-head" style="background:var(--arefi)">2F</div>
+            <div class="cg-head" style="background:var(--arefi)">3F</div>
+            <div class="cg-item label-item">빛</div>
+            <div class="cg-item"><textarea placeholder="..." rows="2"></textarea></div>
+            <div class="cg-item"><textarea placeholder="..." rows="2"></textarea></div>
+            <div class="cg-item"><textarea placeholder="..." rows="2"></textarea></div>
+            <div class="cg-item label-item">뷰</div>
+            <div class="cg-item"><textarea placeholder="..." rows="2"></textarea></div>
+            <div class="cg-item"><textarea placeholder="..." rows="2"></textarea></div>
+            <div class="cg-item"><textarea placeholder="..." rows="2"></textarea></div>
+            <div class="cg-item label-item">재료</div>
+            <div class="cg-item"><textarea placeholder="..." rows="2"></textarea></div>
+            <div class="cg-item"><textarea placeholder="..." rows="2"></textarea></div>
+            <div class="cg-item"><textarea placeholder="..." rows="2"></textarea></div>
+          </div>
+          <div class="field-label">✏️ 가장 좋았던 층은? 이유는?</div>
+          <textarea class="field" placeholder="나는 ___층이 좋았다. 이유는 ..." rows="2"></textarea>
+          <div class="student-sub">
+            <div class="sub-header elem">🧒 초등 5~6학년 기준</div>
+            <div class="sub-body">
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>어느 층이 가장 높이 올라간 느낌인지 말할 수 있는가</div>
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>층마다 분위기가 다르다는 걸 느꼈는가</div>
+            </div>
+            <div class="sub-header mid">📐 중학생·고등학생 기준</div>
+            <div class="sub-body">
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>층별 공간 프로그램(용도)과 설계 의도의 연결을 설명할 수 있는가</div>
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>수직적 공간 구성이 하나의 건축 전략임을 인식했는가</div>
+            </div>
+          </div>
+          <button class="done-btn arefi-btn" onclick="completeMission('m8')">✓ 미션 08 완료</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- M9 왜 이 건물이 주목받았나 -->
+    <div class="mission-card" id="card-m9">
+      <div class="mission-head" onclick="toggleMission('m9')">
+        <div class="m-num-wrap">
+          <div class="m-num">09</div>
+          <div class="m-tag arefi-tag">오름</div>
+        </div>
+        <div class="m-info">
+          <div class="m-title">왜 이 건물이 주목받았나?</div>
+          <div class="m-meta"><span class="m-time">⏱ 10분</span><span class="m-theme">비판적 평가</span></div>
+        </div>
+        <div class="m-arrow" id="ti-m9">▼</div>
+      </div>
+      <div class="mission-body" id="body-m9">
+        <div class="body-inner">
+          <div class="concept-box arefi-box">
+            <div class="concept-kw">MISSION BRIEF</div>
+            아레피는 세계 건축상을 수상한 건물입니다.<br>건축상은 아름다움만이 아니라 — 독창성, 장소성, 사용자 경험, 지속가능성을 봅니다.<br>내가 심사위원이라면 어떤 점을 평가하겠습니까?
+          </div>
+          <div class="field-label">🏆 이 건물이 수상한 이유를 3가지 추론하세요</div>
+          <div class="num-list">
+            <div class="num-item"><div class="num-badge arefi-badge">1</div><textarea class="field" placeholder="건축적으로 특별한 점: ..." rows="2"></textarea></div>
+            <div class="num-item"><div class="num-badge arefi-badge">2</div><textarea class="field" placeholder="사용자 경험 측면에서: ..." rows="2"></textarea></div>
+            <div class="num-item"><div class="num-badge arefi-badge">3</div><textarea class="field" placeholder="장소·환경 측면에서: ..." rows="2"></textarea></div>
+          </div>
+          <div class="field-label">❓ 반대로, 아쉬운 점이나 개선점은?</div>
+          <textarea class="field" placeholder="수상작이라도 비판적으로 볼 수 있어야 합니다..." rows="3"></textarea>
+          <div class="field-label">⭐ 내 평가 (1~5점)</div>
+          <div class="rating-row" id="rate-m9">
+            <div class="rating-item" onclick="setRating('m9',1,'arefi',this)"><div class="rating-circle">1</div><div class="rating-text">별로</div></div>
+            <div class="rating-item" onclick="setRating('m9',2,'arefi',this)"><div class="rating-circle">2</div><div class="rating-text">보통</div></div>
+            <div class="rating-item" onclick="setRating('m9',3,'arefi',this)"><div class="rating-circle">3</div><div class="rating-text">좋음</div></div>
+            <div class="rating-item" onclick="setRating('m9',4,'arefi',this)"><div class="rating-circle">4</div><div class="rating-text">훌륭</div></div>
+            <div class="rating-item" onclick="setRating('m9',5,'arefi',this)"><div class="rating-circle">5</div><div class="rating-text">최고</div></div>
+          </div>
+          <button class="done-btn arefi-btn" onclick="completeMission('m9')">✓ 미션 09 완료</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- M10 동선 스케치 -->
+    <div class="mission-card" id="card-m10">
+      <div class="mission-head" onclick="toggleMission('m10')">
+        <div class="m-num-wrap">
+          <div class="m-num">10</div>
+          <div class="m-tag arefi-tag">오름</div>
+        </div>
+        <div class="m-info">
+          <div class="m-title">수직 동선 약도 스케치</div>
+          <div class="m-meta"><span class="m-time">⏱ 9분</span><span class="m-theme">스케치</span></div>
+        </div>
+        <div class="m-arrow" id="ti-m10">▼</div>
+      </div>
+      <div class="mission-body" id="body-m10">
+        <div class="body-inner">
+          <div class="concept-box arefi-box">
+            <div class="concept-kw">MISSION BRIEF</div>
+            1F 진입부터 3F 루프탑까지의 이동 경로를 약도로 그려보세요.<br>평면이 아닌 단면(옆에서 본 모습)으로 표현해도 좋습니다.
+          </div>
+          <div class="field-label">✏️ 수직 동선 약도 스케치</div>
+          <div class="sketch-wrap">
+            <canvas id="canvas-m10" class="sketch-canvas" width="640" height="400"></canvas>
+            <div class="sketch-tools">
+              <div class="color-dot sel" style="background:#2F3E46" onclick="setColor('#2F3E46',this)"></div>
+              <div class="color-dot" style="background:#6A5D7B" onclick="setColor('#6A5D7B',this)"></div>
+              <div class="color-dot" style="background:#2E5894" onclick="setColor('#2E5894',this)"></div>
+              <div class="color-dot" style="background:#B85C38" onclick="setColor('#B85C38',this)"></div>
+              <button class="clear-btn" onclick="clearCanvas('canvas-m10')">지우기</button>
+            </div>
+          </div>
+          <div class="or-divider">— 또는 종이 스케치를 사진으로 —</div>
+          <div class="photo-zone">
+            <label class="photo-label-btn" for="p-m10"><span class="ph-icon">📷</span>스케치 사진 올리기</label>
+            <input type="file" id="p-m10" accept="image/*" capture="environment" style="display:none" onchange="showPreview(this,'prev-m10')">
+            <a href="https://drive.google.com/drive/folders/1EX_FwTL_FBIQElOZtxY67VS9_C5xgAz3" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:10px;border:1px solid #C8CDD3;border-radius:8px;font-size:12px;color:#5A6068;text-decoration:none;margin-top:6px;background:#FAFAF8;">
+              📁 Drive에 저장 — M10 동선스케치
+            </a>
+            <img id="prev-m10" class="photo-preview">
+          </div>
+          <div class="field-label">✏️ 이 건물에서 가장 기억에 남는 순간은?</div>
+          <textarea class="field" placeholder="어떤 층, 어떤 장면, 어떤 감각이 기억에 남는가?" rows="2"></textarea>
+          <button class="done-btn arefi-btn" onclick="completeMission('m10')">✓ 미션 10 완료</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /tab-arefi -->
+
+
+<!-- ═══════════════════════════════════════════
+     STOP 03 — 치타누오바 Cittá Nuova (열림)
+     14:10~15:50 · 약 75분 활동
+════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-chita">
+
+  <div class="loc-header">
+    <div class="loc-card">
+      <div class="loc-stripe chita"></div>
+      <div class="loc-body">
+        <div class="loc-top">
+          <div>
+            <div class="loc-name">치타누오바 Cittá Nuova</div>
+            <div class="loc-concept" style="color:var(--chita)">열림 — 창고의 벽이 열려 성지의 자연과 하나 되다</div>
+            <div class="loc-sub">충남 당진시 합덕 · 신리성지 내 · 양곡창고 리모델링 카페</div>
+          </div>
+          <div class="loc-time-box">
+            <div class="loc-time-num">75분</div>
+            <div class="loc-time-label">활동시간</div>
+          </div>
+        </div>
+        <div class="loc-missions">
+          <span class="loc-pill">🚌 14:10 도착</span>
+          <span class="loc-pill">📋 미션 5개</span>
+          <span class="loc-pill">🌾 재생건축</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mission-section">
+
+    <!-- M11 외부 건물 읽기 -->
+    <div class="mission-card" id="card-m11">
+      <div class="mission-head" onclick="toggleMission('m11')">
+        <div class="m-num-wrap">
+          <div class="m-num">11</div>
+          <div class="m-tag chita-tag">열림</div>
+        </div>
+        <div class="m-info">
+          <div class="m-title">외부 건물 읽기</div>
+          <div class="m-meta"><span class="m-time">⏱ 8분</span><span class="m-theme">관찰·기록</span></div>
+        </div>
+        <div class="m-arrow" id="ti-m11">▼</div>
+      </div>
+      <div class="mission-body" id="body-m11">
+        <div class="body-inner">
+          <div class="concept-box chita-box">
+            <div class="concept-kw">MISSION BRIEF</div>
+            카페에 들어가기 전, 밖에서 건물을 먼저 읽어보세요.<br>좋은 건축가는 늘 바깥에서부터 시작합니다.
+          </div>
+          <div class="field-label">📋 외부 관찰 체크리스트</div>
+          <div class="checklist">
+            <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">외벽의 주요 재료를 확인했다<span class="check-sub">어떤 재료? (나무/벽돌/금속/콘크리트...)</span></div></div>
+            <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">입구의 위치와 방향을 파악했다<span class="check-sub">정문이 어느 방향으로 나 있나요?</span></div></div>
+            <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">건물이 신리성지 잔디밭과 어떻게 어울리는지 봤다</div></div>
+            <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">간판·사인의 디자인 언어를 확인했다</div></div>
+          </div>
+          <div class="field-label">📸 외부 전체가 보이는 사진</div>
+          <div class="photo-zone">
+            <label class="photo-label-btn" for="p-m11"><span class="ph-icon">📷</span>외부 사진 찍기</label>
+            <input type="file" id="p-m11" accept="image/*" capture="environment" style="display:none" onchange="showPreview(this,'prev-m11')">
+            <a href="https://drive.google.com/drive/folders/1-J4XFlFBtqw42T3ur2EHQ68BajJO8ZFU" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:10px;border:1px solid #C8CDD3;border-radius:8px;font-size:12px;color:#5A6068;text-decoration:none;margin-top:6px;background:#FAFAF8;">
+              📁 Drive에 저장 — M11 외부건물읽기
+            </a>
+            <img id="prev-m11" class="photo-preview">
+          </div>
+          <div class="field-label">✏️ 건물을 한 문장으로 묘사하면?<span>외부 인상만으로</span></div>
+          <textarea class="field" placeholder="이 건물은 ..." rows="2"></textarea>
+          <div class="student-sub">
+            <div class="sub-header elem">🧒 초등 5~6학년 기준</div>
+            <div class="sub-body">
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>형태가 직관적으로 읽히는가 ("옛날 건물이 바뀌었다")</div>
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>안/밖 관계가 보이는가 ("창 너머 잔디밭이 보인다")</div>
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>분위기를 말로 표현할 수 있는가 ("조용하다", "넓다")</div>
+            </div>
+            <div class="sub-header mid">📐 중학생·고등학생 기준</div>
+            <div class="sub-body">
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>동선과 머무름이 관찰되는가</div>
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>용도 전환(창고→카페)에서 질문이 생기는가 ("원래 뭐였지?")</div>
+              <div class="sub-check" onclick="toggleMini(this)"><div class="mini-box"></div>모형 제작 활동으로 연결 가능한가</div>
+            </div>
+          </div>
+          <button class="done-btn chita-btn" onclick="completeMission('m11')">✓ 미션 11 완료</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- M12 동선 스케치 -->
+    <div class="mission-card" id="card-m12">
+      <div class="mission-head" onclick="toggleMission('m12')">
+        <div class="m-num-wrap">
+          <div class="m-num">12</div>
+          <div class="m-tag chita-tag">열림</div>
+        </div>
+        <div class="m-info">
+          <div class="m-title">동선 스케치</div>
+          <div class="m-meta"><span class="m-time">⏱ 10분</span><span class="m-theme">스케치·분석</span></div>
+        </div>
+        <div class="m-arrow" id="ti-m12">▼</div>
+      </div>
+      <div class="mission-body" id="body-m12">
+        <div class="body-inner">
+          <div class="concept-box chita-box">
+            <div class="concept-kw">MISSION BRIEF</div>
+            입구에서 좌석까지 걸어가 보세요.<br>이동하면서 경로를 머릿속에 기억한 다음, 아래에 간단한 평면 약도로 표현해보세요.<br>정확하지 않아도 됩니다 — 순서와 방향이 중요해요.
+          </div>
+          <div class="field-label">✏️ 입구 → 좌석 동선 약도 스케치</div>
+          <div class="sketch-wrap">
+            <canvas id="canvas-m12" class="sketch-canvas" width="640" height="400"></canvas>
+            <div class="sketch-tools">
+              <div class="color-dot sel" style="background:#2F3E46" onclick="setColor('#2F3E46',this)"></div>
+              <div class="color-dot" style="background:#004D40" onclick="setColor('#004D40',this)"></div>
+              <div class="color-dot" style="background:#2E5894" onclick="setColor('#2E5894',this)"></div>
+              <div class="color-dot" style="background:#B85C38" onclick="setColor('#B85C38',this)"></div>
+              <button class="clear-btn" onclick="clearCanvas('canvas-m12')">지우기</button>
+            </div>
+          </div>
+          <div class="or-divider">— 또는 종이 스케치를 사진으로 —</div>
+          <div class="photo-zone">
+            <label class="photo-label-btn" for="p-m12"><span class="ph-icon">📷</span>스케치 사진 올리기</label>
+            <input type="file" id="p-m12" accept="image/*" capture="environment" style="display:none" onchange="showPreview(this,'prev-m12')">
+            <a href="https://drive.google.com/drive/folders/1iE9FUdx_kq173-cyETXcXWns5Gczu28y" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:10px;border:1px solid #C8CDD3;border-radius:8px;font-size:12px;color:#5A6068;text-decoration:none;margin-top:6px;background:#FAFAF8;">
+              📁 Drive에 저장 — M12 동선스케치
+            </a>
+            <img id="prev-m12" class="photo-preview">
+          </div>
+          <div class="field-label" style="margin-top:12px">✏️ 동선에서 특이했던 점은?<span>방향 전환, 좁은 구간, 시선 변화 등</span></div>
+          <textarea class="field" placeholder="동선에서 눈에 띈 것: ..." rows="2"></textarea>
+          <button class="done-btn chita-btn" onclick="completeMission('m12')">✓ 미션 12 완료</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- M13 감각 분석 -->
+    <div class="mission-card" id="card-m13">
+      <div class="mission-head" onclick="toggleMission('m13')">
+        <div class="m-num-wrap">
+          <div class="m-num">13</div>
+          <div class="m-tag chita-tag">열림</div>
+        </div>
+        <div class="m-info">
+          <div class="m-title">감각 분석 — 빛·소리·재료</div>
+          <div class="m-meta"><span class="m-time">⏱ 8분</span><span class="m-theme">감각·서술</span></div>
+        </div>
+        <div class="m-arrow" id="ti-m13">▼</div>
+      </div>
+      <div class="mission-body" id="body-m13">
+        <div class="body-inner">
+          <div class="concept-box chita-box">
+            <div class="concept-kw">MISSION BRIEF</div>
+            건축은 눈으로만 보는 게 아닙니다.<br>빛의 방향, 소리의 울림, 재료의 촉감까지 — 모두 설계자의 선택입니다.
+          </div>
+          <div class="field-label">💡 빛은 어떻게 들어오나요?</div>
+          <div class="analysis-row">
+            <div class="ar-label">방향</div>
+            <div class="ar-input"><textarea class="field" placeholder="어느 방향에서? 창 크기는?" rows="2"></textarea></div>
+          </div>
+          <div class="analysis-row">
+            <div class="ar-label">느낌</div>
+            <div class="ar-input">
+              <select class="field-select">
+                <option value="">선택</option>
+                <option>매우 밝고 직접적</option>
+                <option>은은하고 확산된 느낌</option>
+                <option>어둡고 차분한 느낌</option>
+                <option>시간대별로 변할 것 같음</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-label" style="margin-top:4px">🔊 소리는 어떻게 느껴지나요?</div>
+          <div class="analysis-row">
+            <div class="ar-label">울림</div>
+            <div class="ar-input">
+              <select class="field-select">
+                <option value="">선택</option>
+                <option>소리가 많이 울린다 (높은 천장)</option>
+                <option>적당히 흡수된다</option>
+                <option>외부 소리가 많이 들린다</option>
+                <option>매우 조용하다</option>
+              </select>
+            </div>
+          </div>
+          <div class="analysis-row" style="margin-top:8px">
+            <div class="ar-label">이유 추측</div>
+            <div class="ar-input"><textarea class="field" placeholder="이렇게 들리는 이유는 (재료, 높이, 창문...)?" rows="2"></textarea></div>
+          </div>
+          <div class="field-label" style="margin-top:4px">🖐 가장 인상적인 재료는?</div>
+          <textarea class="field" placeholder="재료 이름, 위치, 촉감/시각 인상을 적어보세요..." rows="2"></textarea>
+          <button class="done-btn chita-btn" onclick="completeMission('m13')">✓ 미션 13 완료</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- M14 이 건물의 전생 추론 -->
+    <div class="mission-card" id="card-m14">
+      <div class="mission-head" onclick="toggleMission('m14')">
+        <div class="m-num-wrap">
+          <div class="m-num">14</div>
+          <div class="m-tag chita-tag">열림</div>
+        </div>
+        <div class="m-info">
+          <div class="m-title">이 건물의 전생 추론</div>
+          <div class="m-meta"><span class="m-time">⏱ 10분</span><span class="m-theme">추론·탐정</span></div>
+        </div>
+        <div class="m-arrow" id="ti-m14">▼</div>
+      </div>
+      <div class="mission-body" id="body-m14">
+        <div class="body-inner">
+          <div class="concept-box chita-box">
+            <div class="concept-kw">MISSION BRIEF</div>
+            치타누오바는 원래 <b>양곡창고</b>였던 건물입니다.<br>건물 안팎을 잘 살펴보면 그 흔적이 남아 있어요.<br>단서들을 찾아 기록하고, 왜 카페로 변신했는지 추론해보세요.
+          </div>
+          <div class="field-label">🔍 창고 흔적 단서 찾기</div>
+          <div class="checklist">
+            <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">높은 창고형 천장이 보인다</div></div>
+            <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">벽이 오래된 흔적이 있다</div></div>
+            <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">문의 크기나 형태가 일반 카페와 다르다</div></div>
+            <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">창문의 위치가 특이하다</div></div>
+            <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">기타 단서: </div></div>
+          </div>
+          <div class="field-label">📸 가장 인상적인 '전생의 흔적' 사진</div>
+          <div class="photo-zone">
+            <label class="photo-label-btn" for="p-m14"><span class="ph-icon">📷</span>흔적 사진 찍기</label>
+            <input type="file" id="p-m14" accept="image/*" capture="environment" style="display:none" onchange="showPreview(this,'prev-m14')">
+            <a href="https://drive.google.com/drive/folders/1OM4oODs0Bqmm0GuLfG-0S-8GUxs4MfDk" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:10px;border:1px solid #C8CDD3;border-radius:8px;font-size:12px;color:#5A6068;text-decoration:none;margin-top:6px;background:#FAFAF8;">
+              📁 Drive에 저장 — M14 전생추론
+            </a>
+            <img id="prev-m14" class="photo-preview">
+          </div>
+          <div class="field-label" style="margin-top:12px">✏️ 이 건물이 카페로 변신한 이유 3가지 추론</div>
+          <div class="num-list">
+            <div class="num-item"><div class="num-badge chita-badge">1</div><textarea class="field" placeholder="..." rows="1"></textarea></div>
+            <div class="num-item"><div class="num-badge chita-badge">2</div><textarea class="field" placeholder="..." rows="1"></textarea></div>
+            <div class="num-item"><div class="num-badge chita-badge">3</div><textarea class="field" placeholder="..." rows="1"></textarea></div>
+          </div>
+          <button class="done-btn chita-btn" onclick="completeMission('m14')">✓ 미션 14 완료</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- M15 3개 장소 비교 + 내 카페 기획 -->
+    <div class="mission-card" id="card-m15">
+      <div class="mission-head" onclick="toggleMission('m15')">
+        <div class="m-num-wrap">
+          <div class="m-num">15</div>
+          <div class="m-tag chita-tag">열림</div>
+        </div>
+        <div class="m-info">
+          <div class="m-title">3개 공간 비교 + 내 카페 기획</div>
+          <div class="m-meta"><span class="m-time">⏱ 20분</span><span class="m-theme">비교·창작</span></div>
+        </div>
+        <div class="m-arrow" id="ti-m15">▼</div>
+      </div>
+      <div class="mission-body" id="body-m15">
+        <div class="body-inner">
+          <div class="concept-box chita-box">
+            <div class="concept-kw">FINAL MISSION</div>
+            오늘 방문한 세 공간은 모두 다른 건축적 선택을 했습니다.<br>품음(모나밸리) · 오름(아레피) · 열림(치타누오바)<br>차이를 분석하고, 오늘 배운 것으로 내 공간을 기획해보세요.
+          </div>
+          <div class="field-label">📊 3개 공간 비교 분석</div>
+          <div class="compare-grid">
+            <div class="cg-head" style="background:transparent"></div>
+            <div class="cg-head" style="background:var(--mona)">품음<br>모나밸리</div>
+            <div class="cg-head" style="background:var(--arefi)">오름<br>아레피</div>
+            <div class="cg-head" style="background:var(--chita)">열림<br>치타누오바</div>
+            <div class="cg-item label-item">규모·입지</div>
+            <div class="cg-item"><textarea placeholder="..." rows="2"></textarea></div>
+            <div class="cg-item"><textarea placeholder="..." rows="2"></textarea></div>
+            <div class="cg-item"><textarea placeholder="..." rows="2"></textarea></div>
+            <div class="cg-item label-item">주요 재료</div>
+            <div class="cg-item"><textarea placeholder="..." rows="2"></textarea></div>
+            <div class="cg-item"><textarea placeholder="..." rows="2"></textarea></div>
+            <div class="cg-item"><textarea placeholder="..." rows="2"></textarea></div>
+            <div class="cg-item label-item">공간 컨셉</div>
+            <div class="cg-item"><textarea placeholder="안으로 품는..." rows="2"></textarea></div>
+            <div class="cg-item"><textarea placeholder="위로 오르는..." rows="2"></textarea></div>
+            <div class="cg-item"><textarea placeholder="밖으로 열리는..." rows="2"></textarea></div>
+            <div class="cg-item label-item">나에게 맞는 이유</div>
+            <div class="cg-item"><textarea placeholder="..." rows="2"></textarea></div>
+            <div class="cg-item"><textarea placeholder="..." rows="2"></textarea></div>
+            <div class="cg-item"><textarea placeholder="..." rows="2"></textarea></div>
+          </div>
+          <div class="field-label">⭐ 오늘 가장 인상 깊었던 공간은?<span>이유와 함께</span></div>
+          <textarea class="field" placeholder="나는 ___가 가장 좋았다. 이유는 ..." rows="2"></textarea>
+          <div class="field-label" style="margin-top:16px">✏️ 내 공간 기획 — 컨셉 한 문장</div>
+          <div class="insight-box">
+            <div class="insight-kw">작성 팁</div>
+            <div class="insight-text">오늘 본 세 곳에서 배운 것을 섞어보세요.<br>장소 + 컨셉 + 재료 + 분위기 + 사람의 행동을 담아보세요.</div>
+          </div>
+          <textarea class="field tall" placeholder="예: '저수지 위 3층 건물. 물을 안고 올라가는 카페. 1층엔 빵 냄새, 3층엔 하늘.'" rows="3"></textarea>
+          <div class="field-label">🤖 AI 이미지 생성 프롬프트<span>(Day 3 사용 예정)</span></div>
+          <textarea class="field tall" placeholder="영어 또는 한국어로 — 장소·재료·빛·분위기·사람의 행동을 넣어보세요..." rows="4"></textarea>
+          <button class="done-btn chita-btn" onclick="completeMission('m15')" style="background:var(--charcoal)">🎉 모든 미션 완료!</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="final-card" id="final-card" style="display:none">
+    <h2>수사 종료 🔍</h2>
+    <p>15개 미션 완료.<br>오늘 기록한 공간의 언어들이<br>Day 3 설계의 씨앗이 됩니다. 🏗️</p>
+    <button class="finish-btn">확인</button>
+  </div>
+
+</div><!-- /tab-chita -->
+
+</main>
+
+<div class="doc-footer">
+  GJAS_활동지_중고등_v1.1_20260508 · STRUCTURE LOCK · 2026 공주건축학교 · ARCHIVIA Architects · 허선미 건축사 기획
+</div>
+
+<script>
+// ── Tab ──
+function showTab(id){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelector('[data-tab="'+id+'"]').classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ── Mission Toggle ──
+function toggleMission(id){
+  const body=document.getElementById('body-'+id);
+  const head=document.querySelector('#card-'+id+' .mission-head');
+  const ti=document.getElementById('ti-'+id);
+  const open=body.classList.contains('open');
+  body.classList.toggle('open');
+  head.classList.toggle('open');
+  ti.textContent=open?'▼':'▲';
+}
+
+// ── Mission Complete ──
+function completeMission(id){
+  const card=document.getElementById('card-'+id);
+  card.classList.toggle('done');
+  const body=document.getElementById('body-'+id);
+  const head=document.querySelector('#card-'+id+' .mission-head');
+  const ti=document.getElementById('ti-'+id);
+  body.classList.remove('open');
+  head.classList.remove('open');
+  ti.textContent='▼';
+  updateProgress();
+  if(id==='m15'&&card.classList.contains('done')) document.getElementById('final-card').style.display='block';
+}
+
+// ── Progress ──
+function updateProgress(){
+  const done=document.querySelectorAll('.mission-card.done').length;
+  document.getElementById('done-count').textContent=done;
+  document.getElementById('prog-bar').style.width=(done/15*100)+'%';
+}
+
+// ── Checklist ──
+function toggleCheck(row){ row.classList.toggle('checked'); }
+function toggleMini(el){
+  const box=el.querySelector('.mini-box');
+  box.classList.toggle('on');
+}
+
+// ── Photo Preview ──
+function showPreview(input,prevId){
+  const file=input.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const img=document.getElementById(prevId);
+    img.src=e.target.result;
+    img.style.display='block';
+  };
+  reader.readAsDataURL(file);
+}
+
+// ── Rating ──
+function setRating(id,val,site,el){
+  const container=document.getElementById('rate-'+id);
+  container.querySelectorAll('.rating-item').forEach((r)=>{
+    r.classList.remove('sel-mona','sel-arefi','sel-chita');
+  });
+  container.querySelectorAll('.rating-item').forEach((r,i)=>{
+    if(i<val) r.classList.add('sel-'+site);
+  });
+}
+
+// ── Canvas ──
+let currentColor='#2F3E46';
+function initCanvas(id){
+  const canvas=document.getElementById(id);
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  ctx.strokeStyle=currentColor;
+  ctx.lineWidth=2.5;
+  ctx.lineCap='round';
+  ctx.lineJoin='round';
+  let drawing=false,lx=0,ly=0;
+  function pos(e){
+    const r=canvas.getBoundingClientRect();
+    const sx=canvas.width/r.width,sy=canvas.height/r.height;
+    if(e.touches)return{x:(e.touches[0].clientX-r.left)*sx,y:(e.touches[0].clientY-r.top)*sy};
+    return{x:(e.clientX-r.left)*sx,y:(e.clientY-r.top)*sy};
+  }
+  canvas.addEventListener('mousedown',e=>{drawing=true;const p=pos(e);lx=p.x;ly=p.y;});
+  canvas.addEventListener('mousemove',e=>{if(!drawing)return;const p=pos(e);ctx.strokeStyle=currentColor;ctx.beginPath();ctx.moveTo(lx,ly);ctx.lineTo(p.x,p.y);ctx.stroke();lx=p.x;ly=p.y;});
+  canvas.addEventListener('mouseup',()=>drawing=false);
+  canvas.addEventListener('touchstart',e=>{e.preventDefault();drawing=true;const p=pos(e);lx=p.x;ly=p.y;},{passive:false});
+  canvas.addEventListener('touchmove',e=>{e.preventDefault();if(!drawing)return;const p=pos(e);ctx.strokeStyle=currentColor;ctx.beginPath();ctx.moveTo(lx,ly);ctx.lineTo(p.x,p.y);ctx.stroke();lx=p.x;ly=p.y;},{passive:false});
+  canvas.addEventListener('touchend',()=>drawing=false);
+}
+function setColor(color,el){
+  currentColor=color;
+  document.querySelectorAll('.color-dot').forEach(d=>d.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function clearCanvas(id){
+  const c=document.getElementById(id);
+  if(!c)return;
+  c.getContext('2d').clearRect(0,0,c.width,c.height);
+}
+
+// ── Init ──
+document.addEventListener('DOMContentLoaded',()=>{
+  ['canvas-m4','canvas-m10','canvas-m12'].forEach(initCanvas);
+  toggleMission('m1');
+});
+
+// ── 다운로드·복사 방지 ──
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  const k = e.key.toLowerCase();
+  if ((e.ctrlKey || e.metaKey) && ['s','u','p'].includes(k)) e.preventDefault();
+});
+
+</script>
+</body>
+</html>
