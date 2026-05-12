@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GJAS 2026 — 사전답사 결과 대시보드</title>
+<title>GJAS 2026 사전답사 결과</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@700&family=IBM+Plex+Mono:wght@400;600&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -12,240 +12,406 @@
   --arefi:#6A5D7B;--arefi-l:#E6E1ED;
   --chita:#004D40;--chita-l:#D5E8E4;
   --ink:#1A1A1A;--desc:#5A6068;--icy:#F2F4F7;--dark:#1A2830;
+  --ok-c:#004D40;--ok-bg:#D5E8E4;
+  --warn-c:#9B2335;--warn-bg:#F0E4E6;
+  --hold-c:#B45309;--hold-bg:#FEF3C7;
 }
-body{font-family:'Noto Sans KR',sans-serif;background:var(--icy);color:var(--ink);min-height:100vh}
-
-/* Header */
-.app-header{background:var(--dark);padding:16px 20px;position:sticky;top:0;z-index:100}
-.header-inner{display:flex;align-items:center;justify-content:space-between;max-width:960px;margin:0 auto}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--icy);color:var(--ink);padding-bottom:60px}
+.app-header{background:var(--dark);padding:14px 20px;position:sticky;top:0;z-index:100}
 .header-label{font-size:9.5px;letter-spacing:2px;color:rgba(255,255,255,.4);margin-bottom:3px}
 .header-title{font-size:16px;font-weight:700;color:white}
-.refresh-btn{padding:7px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.7);font-family:inherit;font-size:12px;cursor:pointer;transition:all .2s}
-.refresh-btn:hover{background:rgba(255,255,255,.1)}
+.header-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px}
+main{max-width:800px;margin:0 auto;padding:20px 14px}
 
-/* Main */
-main{max-width:960px;margin:0 auto;padding:20px 16px 60px}
-
-/* Loading */
-.loading{text-align:center;padding:60px;color:var(--desc)}
-.spinner{width:36px;height:36px;border:3px solid #E0DCD6;border-top-color:var(--mona);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* Summary Bar */
-.summary-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
-.sum-card{background:white;border-radius:12px;padding:16px;border-left:4px solid;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+/* 요약 3단 */
+.sum-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
+.sum-card{background:white;border-radius:12px;padding:14px;border-left:4px solid;box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .sum-card.mona{border-left-color:var(--mona)}
 .sum-card.arefi{border-left-color:var(--arefi)}
 .sum-card.chita{border-left-color:var(--chita)}
-.sum-site{font-size:10px;font-family:'IBM Plex Mono',monospace;letter-spacing:1px;color:var(--desc);margin-bottom:4px}
-.sum-name{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:10px}
-.sum-verdict{font-size:22px;font-weight:700;margin-bottom:4px}
-.sum-count{font-size:11px;color:var(--desc)}
-.verdict-ok{color:#004D40}
-.verdict-hold{color:#B45309}
-.verdict-no{color:#9B2335}
-.verdict-none{color:#A0A5AB}
+.sum-concept{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--desc);margin-bottom:2px}
+.sum-name{font-size:12px;font-weight:700;margin-bottom:8px}
+.sum-verdict{font-size:18px;font-weight:800;margin-bottom:4px}
+.sum-ok{color:var(--ok-c)}
+.sum-hold{color:var(--hold-c)}
+.sum-no{color:var(--warn-c)}
+.sum-count{font-size:10px;color:var(--desc)}
+.pass-bar-wrap{margin-top:8px}
+.pass-label{display:flex;justify-content:space-between;font-size:10px;color:var(--desc);margin-bottom:3px}
+.pass-bar{height:5px;background:#E0DCD6;border-radius:3px;overflow:hidden}
+.pass-fill{height:100%;border-radius:3px}
 
-/* Pass Rate */
-.pass-bar-wrap{margin-top:10px}
-.pass-label{display:flex;justify-content:space-between;font-size:10px;color:var(--desc);margin-bottom:4px}
-.pass-bar{height:6px;background:#E0DCD6;border-radius:3px;overflow:hidden}
-.pass-fill{height:100%;border-radius:3px;transition:width .6s}
+/* 주의 섹션 */
+.warn-section{background:white;border-radius:12px;padding:14px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.section-label{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:1.5px;color:var(--desc);margin-bottom:10px}
+.warn-item{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--icy);font-size:12px}
+.warn-item:last-child{border-bottom:none}
+.wi-site{font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;white-space:nowrap}
+.wi-label{flex:1;color:var(--ink)}
+.wi-who{font-size:10px;color:var(--desc);flex-shrink:0}
+.wi-status{font-size:11px;font-weight:700;flex-shrink:0}
 
-/* Section */
-.section-title{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--desc);margin-bottom:12px;padding-top:8px}
+/* 장소별 결과 */
+.site-section{margin-bottom:28px}
+.site-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.site-dot{width:12px;height:12px;border-radius:50%}
+.site-title{font-size:16px;font-weight:700}
+.site-concept{font-size:11px;color:var(--desc);margin-left:auto;font-family:'IBM Plex Mono',monospace}
 
-/* Result Cards */
-.result-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:28px}
-.result-card{background:white;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:hidden}
-.rc-header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--icy)}
+/* 결과 카드 */
+.result-cards{display:flex;flex-direction:column;gap:10px}
+.rc{background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.rc-top{display:flex;align-items:stretch}
+.rc-bar{width:4px;flex-shrink:0}
+.rc-bar.mona-bar{background:var(--mona)}
+.rc-bar.arefi-bar{background:var(--arefi)}
+.rc-bar.chita-bar{background:var(--chita)}
+.rc-content{flex:1;padding:12px 14px}
+.rc-row1{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
 .rc-name{font-weight:700;font-size:14px}
-.rc-time{font-size:10px;color:var(--desc);font-family:'IBM Plex Mono',monospace}
-.rc-verdict{font-size:18px;font-weight:700;padding:10px 14px}
-.rc-body{padding:0 14px 12px}
-.check-summary{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}
-.cs-chip{font-size:11px;padding:3px 8px;border-radius:6px;font-weight:600}
-.cs-ok{background:#D5E8E4;color:#004D40}
-.cs-warn{background:#F0E4E6;color:#9B2335}
-.cs-empty{background:#F0EDE8;color:#A0A5AB}
-.rc-memo{font-size:12px;color:var(--desc);line-height:1.6;border-top:1px solid var(--icy);padding-top:8px;margin-top:4px}
-
-/* Fail Items */
-.fail-section{background:white;border-radius:12px;padding:16px;margin-bottom:24px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.fail-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--icy);font-size:12px}
-.fail-item:last-child{border-bottom:none}
-.fail-site{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;flex-shrink:0}
-.fail-label{color:var(--ink);line-height:1.5}
-.fail-tag{font-size:10px;font-weight:700;color:#9B2335;flex-shrink:0}
-
-/* Empty */
-.empty-state{text-align:center;padding:40px;color:var(--desc);font-size:13px}
+.rc-ts{font-size:10px;color:var(--desc);font-family:'IBM Plex Mono',monospace}
+.rc-verdict{font-size:13px;font-weight:700;padding:3px 10px;border-radius:6px;flex-shrink:0}
+.v-go{background:var(--ok-bg);color:var(--ok-c)}
+.v-hold{background:var(--hold-bg);color:var(--hold-c)}
+.v-no{background:var(--warn-bg);color:var(--warn-c)}
+.v-etc{background:#F0EDE8;color:#5C6066}
+.rc-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.chip{font-size:10px;padding:2px 7px;border-radius:4px;font-weight:600}
+.chip-ok{background:var(--ok-bg);color:var(--ok-c)}
+.chip-warn{background:var(--warn-bg);color:var(--warn-c)}
+.chip-empty{background:#F0EDE8;color:#A0A5AB}
+.rc-memo{font-size:12px;color:var(--desc);line-height:1.7;border-top:1px solid var(--icy);padding-top:8px;white-space:pre-line}
+.check-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:4px;margin-bottom:8px}
+.cg-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink)}
+.cg-icon{font-size:12px;flex-shrink:0}
+.cg-pri{font-size:9px;font-weight:700;padding:1px 4px;border-radius:3px;flex-shrink:0}
+.pri-must{background:var(--warn-bg);color:var(--warn-c)}
+.pri-rec{background:var(--mona-l);color:var(--mona)}
+.pri-opt{background:#F0EDE8;color:#5C6066}
 </style>
 </head>
 <body>
-
 <header class="app-header">
-  <div class="header-inner">
-    <div>
-      <div class="header-label">GJAS 2026 · 사전답사</div>
-      <div class="header-title">📊 결과 대시보드</div>
-    </div>
-    <button class="refresh-btn" onclick="loadData()">↻ 새로고침</button>
-  </div>
+  <div class="header-label">GJAS 2026 · 사전답사 결과</div>
+  <div class="header-title">📊 장소별 검증 결과 대시보드</div>
+  <div class="header-sub">2026년 5월 8일 · 답사자 2인 (허선미, 김준섭, 박경용)</div>
 </header>
-
 <main>
-  <div id="loading" class="loading">
-    <div class="spinner"></div>
-    <div>결과 불러오는 중...</div>
+
+<!-- 요약 3단 -->
+<div class="sum-grid">
+  <div class="sum-card mona">
+    <div class="sum-concept">품음 · STOP 01</div>
+    <div class="sum-name">모나밸리</div>
+    <div class="sum-verdict sum-ok">✅ 적합</div>
+    <div class="sum-count">3인 제출 · 전원 적합/미정</div>
+    <div class="pass-bar-wrap">
+      <div class="pass-label"><span>필수 통과율</span><span>100%</span></div>
+      <div class="pass-bar"><div class="pass-fill" style="width:100%;background:var(--mona)"></div></div>
+    </div>
   </div>
-  <div id="dashboard" style="display:none">
-    <div class="summary-bar" id="summary-bar"></div>
-    <div class="section-title">주의·미통과 항목 (필수)</div>
-    <div class="fail-section" id="fail-list"></div>
-    <div class="section-title">장소별 제출 결과</div>
-    <div class="result-grid" id="result-grid"></div>
+  <div class="sum-card arefi">
+    <div class="sum-concept">오름 · STOP 02</div>
+    <div class="sum-name">아레피</div>
+    <div class="sum-verdict sum-hold">△ 보류</div>
+    <div class="sum-count">3인 제출 · 안전·주차 주의</div>
+    <div class="pass-bar-wrap">
+      <div class="pass-label"><span>필수 주의 항목</span><span>3건</span></div>
+      <div class="pass-bar"><div class="pass-fill" style="width:57%;background:var(--hold-c)"></div></div>
+    </div>
   </div>
-  <div id="error-state" style="display:none" class="empty-state">
-    데이터를 불러올 수 없습니다.<br>잠시 후 새로고침 해주세요.
+  <div class="sum-card chita">
+    <div class="sum-concept">열림 · STOP 03</div>
+    <div class="sum-name">치타누오바</div>
+    <div class="sum-verdict sum-ok">✅ 적합</div>
+    <div class="sum-count">3인 제출 · 전원 적합</div>
+    <div class="pass-bar-wrap">
+      <div class="pass-label"><span>필수 통과율</span><span>100%</span></div>
+      <div class="pass-bar"><div class="pass-fill" style="width:100%;background:var(--chita)"></div></div>
+    </div>
   </div>
-</main>
+</div>
 
-<script>
-const GAS_URL = '/api/data';
+<!-- 주의 항목 요약 -->
+<div class="warn-section">
+  <div class="section-label">⚠ 주의 항목 종합</div>
+  <div class="warn-item">
+    <span class="wi-site" style="background:var(--arefi-l);color:var(--arefi)">아레피</span>
+    <span class="wi-label">답사 동선 안전</span>
+    <span class="wi-who">김준섭·박경용</span>
+    <span class="wi-status" style="color:var(--warn-c)">⚠ 주의</span>
+  </div>
+  <div class="warn-item">
+    <span class="wi-site" style="background:var(--arefi-l);color:var(--arefi)">아레피</span>
+    <span class="wi-label">단체 수용 (대형버스)</span>
+    <span class="wi-who">김준섭</span>
+    <span class="wi-status" style="color:var(--warn-c)">⚠ 주의</span>
+  </div>
+  <div class="warn-item">
+    <span class="wi-site" style="background:var(--arefi-l);color:var(--arefi)">아레피</span>
+    <span class="wi-label">버스 주차</span>
+    <span class="wi-who">김준섭</span>
+    <span class="wi-status" style="color:var(--warn-c)">⚠ 주의</span>
+  </div>
+  <div class="warn-item">
+    <span class="wi-site" style="background:var(--mona-l);color:var(--mona)">모나밸리</span>
+    <span class="wi-label">플라워 베이커리 소품</span>
+    <span class="wi-who">김준섭·박경용</span>
+    <span class="wi-status" style="color:var(--hold-c)">△ 확인필요</span>
+  </div>
+</div>
 
-const SITES = {
-  mona:  {name:'모나밸리 MONAVALLEY', concept:'품음', cls:'mona', color:'#2E5894'},
-  arefi: {name:'아레피 ALEFFEE',       concept:'오름', cls:'arefi', color:'#6A5D7B'},
-  citta: {name:'치타누오바 Cittá Nuova',concept:'열림', cls:'chita', color:'#004D40'},
-};
+<!-- 모나밸리 결과 -->
+<div class="site-section">
+  <div class="site-header">
+    <div class="site-dot" style="background:var(--mona)"></div>
+    <div class="site-title">모나밸리 MONAVALLEY</div>
+    <div class="site-concept">품음</div>
+  </div>
+  <div class="result-cards">
 
-function verdictLabel(v){
-  if(v==='ok')   return {icon:'✅ 적합',   cls:'verdict-ok'};
-  if(v==='hold') return {icon:'△ 보류',   cls:'verdict-hold'};
-  if(v==='no')   return {icon:'✕ 부적합', cls:'verdict-no'};
-  return {icon:'— 미판정', cls:'verdict-none'};
-}
-
-async function loadData(){
-  document.getElementById('loading').style.display='block';
-  document.getElementById('dashboard').style.display='none';
-  document.getElementById('error-state').style.display='none';
-  try {
-    const res  = await fetch(GAS_URL + '?t=' + Date.now());
-    const json = await res.json();
-    if(json.status !== 'ok') throw new Error(json.message);
-    render(json.data);
-  } catch(e) {
-    document.getElementById('loading').style.display='none';
-    document.getElementById('error-state').style.display='block';
-  }
-}
-
-function render(data){
-  document.getElementById('loading').style.display='none';
-  document.getElementById('dashboard').style.display='block';
-
-  // ── 요약 바 ──
-  let summaryHtml = '';
-  Object.entries(SITES).forEach(([id, info]) => {
-    const rows = data[id] || [];
-    const last = rows[rows.length-1];
-    const vd   = last ? verdictLabel(last.verdict) : verdictLabel('');
-    const mustOk  = last ? last.mustPass : '-';
-    const recOk   = last ? last.recPass  : '-';
-
-    // 필수 통과율
-    let mustTotal=0, mustPass=0;
-    if(last && last.checks){
-      last.checks.forEach(c=>{
-        if(c.priority==='must'){mustTotal++;if(c.state==='ok')mustPass++;}
-      });
-    }
-    const rate = mustTotal>0 ? Math.round(mustPass/mustTotal*100) : null;
-
-    summaryHtml += `
-    <div class="sum-card ${info.cls}">
-      <div class="sum-site">${info.concept} · STOP</div>
-      <div class="sum-name">${info.name}</div>
-      <div class="sum-verdict ${vd.cls}">${vd.icon}</div>
-      <div class="sum-count">제출 ${rows.length}건${last?` · 최근: ${last.name}`:''}  </div>
-      ${rate!==null?`
-      <div class="pass-bar-wrap">
-        <div class="pass-label"><span>필수 통과율</span><span>${mustPass}/${mustTotal}</span></div>
-        <div class="pass-bar"><div class="pass-fill" style="width:${rate}%;background:${info.color}"></div></div>
-      </div>`:''}
-    </div>`;
-  });
-  document.getElementById('summary-bar').innerHTML = summaryHtml;
-
-  // ── 주의·미통과 필수 항목 ──
-  let failHtml = '';
-  Object.entries(SITES).forEach(([id, info]) => {
-    const rows = data[id] || [];
-    const last = rows[rows.length-1];
-    if(!last || !last.checks) return;
-    last.checks.forEach(c => {
-      if(c.priority==='must' && c.state!=='ok'){
-        failHtml += `
-        <div class="fail-item">
-          <span class="fail-site" style="background:${info.color}22;color:${info.color}">${info.concept}</span>
-          <span class="fail-label">${c.label||''}</span>
-          <span class="fail-tag">${c.state==='warn'?'⚠ 주의':'○ 미확인'}</span>
-        </div>`;
-      }
-    });
-  });
-  document.getElementById('fail-list').innerHTML = failHtml ||
-    '<div class="empty-state" style="padding:16px">필수 미통과 항목 없음 ✅</div>';
-
-  // ── 장소별 결과 카드 ──
-  let gridHtml = '';
-  Object.entries(SITES).forEach(([id, info]) => {
-    const rows = data[id] || [];
-    if(rows.length===0){
-      gridHtml += `<div class="result-card">
-        <div class="rc-header" style="border-left:4px solid ${info.color}">
-          <span class="rc-name">${info.name}</span>
-        </div>
-        <div class="empty-state" style="padding:20px">미제출</div>
-      </div>`;
-      return;
-    }
-    rows.forEach(row => {
-      const vd = verdictLabel(row.verdict);
-      let okCount=0, warnCount=0, emptyCount=0;
-      (row.checks||[]).forEach(c=>{
-        if(c.state==='ok') okCount++;
-        else if(c.state==='warn') warnCount++;
-        else emptyCount++;
-      });
-      const ts = row.ts ? String(row.ts).substring(0,16) : '';
-      gridHtml += `
-      <div class="result-card">
-        <div class="rc-header" style="border-left:4px solid ${info.color}">
-          <span class="rc-name">${row.name||'익명'}</span>
-          <span class="rc-time">${ts}</span>
-        </div>
-        <div class="rc-verdict ${vd.cls}">${vd.icon}</div>
-        <div class="rc-body">
-          <div class="check-summary">
-            <span class="cs-chip cs-ok">✓ 적합 ${okCount}</span>
-            ${warnCount>0?`<span class="cs-chip cs-warn">⚠ 주의 ${warnCount}</span>`:''}
-            ${emptyCount>0?`<span class="cs-chip cs-empty">○ 미확인 ${emptyCount}</span>`:''}
+    <div class="rc">
+      <div class="rc-top">
+        <div class="rc-bar mona-bar"></div>
+        <div class="rc-content">
+          <div class="rc-row1">
+            <span class="rc-name">허선미</span>
+            <span class="rc-ts">2026-05-08 21:24</span>
+            <span class="rc-verdict v-go">✅ 적합</span>
           </div>
-          ${row.verdictMemo?`<div class="rc-memo">${row.verdictMemo}</div>`:''}
+          <div class="rc-chips">
+            <span class="chip chip-ok">✓ 적합 13</span>
+          </div>
+          <div class="check-grid">
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>답사 동선 안전</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>화장실·우천 대응</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>정상 영업</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>운영시간 일치</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>단체 수용</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>촬영 허용</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>버스 주차</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-rec">권장</span>방문 범위 협의</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-rec">권장</span>혼잡도 적정</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-rec">권장</span>외부 관찰 포인트</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-rec">권장</span>학생 눈높이</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-opt">부가</span>점심식사</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-opt">부가</span>플라워 베이커리</div>
+          </div>
+          <div class="rc-memo">ㅇㅇ</div>
         </div>
-      </div>`;
-    });
-  });
-  document.getElementById('result-grid').innerHTML = gridHtml;
-}
+      </div>
+    </div>
 
-// 자동 로드
-loadData();
-// 3분마다 자동 새로고침
-setInterval(loadData, 180000);
-</script>
+    <div class="rc">
+      <div class="rc-top">
+        <div class="rc-bar mona-bar"></div>
+        <div class="rc-content">
+          <div class="rc-row1">
+            <span class="rc-name">김준섭</span>
+            <span class="rc-ts">2026-05-08 21:28</span>
+            <span class="rc-verdict v-go">✅ 적합</span>
+          </div>
+          <div class="rc-chips">
+            <span class="chip chip-ok">✓ 적합 12</span>
+            <span class="chip chip-warn">⚠ 주의 1</span>
+          </div>
+          <div class="check-grid">
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>답사 동선 안전</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>화장실·우천 대응</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>정상 영업</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>운영시간 일치</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>단체 수용</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>촬영 허용</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>버스 주차</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-rec">권장</span>방문 범위 협의</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-rec">권장</span>혼잡도 적정</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-rec">권장</span>외부 관찰 포인트</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-rec">권장</span>학생 눈높이</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-opt">부가</span>점심식사</div>
+            <div class="cg-item"><span class="cg-icon">⚠️</span><span class="cg-pri pri-opt">부가</span>플라워 베이커리</div>
+          </div>
+          <div class="rc-memo">1. 규모도 넓고 건축과 외부공간이 다양해서 답사지로 적합해보임.
+2. 갤러리와 수공간의 관계나 수공간 속 웨딩로드의 시퀀스 등이 특징적임.
+3. 대형차량의 주차 및 단체의 이용에 무리가 없음.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rc">
+      <div class="rc-top">
+        <div class="rc-bar mona-bar"></div>
+        <div class="rc-content">
+          <div class="rc-row1">
+            <span class="rc-name">박경용</span>
+            <span class="rc-ts">2026-05-08 11:57</span>
+            <span class="rc-verdict v-etc">— 미정</span>
+          </div>
+          <div class="rc-chips">
+            <span class="chip chip-ok">✓ 적합 11</span>
+            <span class="chip chip-empty">○ 미확인 2</span>
+          </div>
+          <div class="rc-memo">카페 조망이 수공간과 밀접하게 연결되어있음
+수공간과 어우러져있는 갤러리도 인상적임</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 아레피 결과 -->
+<div class="site-section">
+  <div class="site-header">
+    <div class="site-dot" style="background:var(--arefi)"></div>
+    <div class="site-title">아레피 ALEFFEE</div>
+    <div class="site-concept">오름</div>
+  </div>
+  <div class="result-cards">
+
+    <div class="rc">
+      <div class="rc-top">
+        <div class="rc-bar arefi-bar"></div>
+        <div class="rc-content">
+          <div class="rc-row1">
+            <span class="rc-name">김준섭</span>
+            <span class="rc-ts">2026-05-08 21:35</span>
+            <span class="rc-verdict v-hold">△ 보류</span>
+          </div>
+          <div class="rc-chips">
+            <span class="chip chip-ok">✓ 적합 8</span>
+            <span class="chip chip-warn">⚠ 주의 6</span>
+          </div>
+          <div class="check-grid">
+            <div class="cg-item"><span class="cg-icon">⚠️</span><span class="cg-pri pri-must">필수</span>답사 동선 안전</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>화장실·우천 대응</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>정상 영업</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>운영시간 일치</div>
+            <div class="cg-item"><span class="cg-icon">⚠️</span><span class="cg-pri pri-must">필수</span>단체 수용</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>촬영 허용</div>
+            <div class="cg-item"><span class="cg-icon">⚠️</span><span class="cg-pri pri-must">필수</span>버스 주차</div>
+            <div class="cg-item"><span class="cg-icon">⚠️</span><span class="cg-pri pri-rec">권장</span>혼잡도 적정</div>
+            <div class="cg-item"><span class="cg-icon">⚠️</span><span class="cg-pri pri-rec">권장</span>루프탑 개방</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-rec">권장</span>외부 관찰 포인트</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-rec">권장</span>학생 눈높이</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-rec">권장</span>방문 범위</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-opt">부가</span>음료·베이커리 가격</div>
+            <div class="cg-item"><span class="cg-icon">⚠️</span><span class="cg-pri pri-opt">부가</span>소품 기념품</div>
+          </div>
+          <div class="rc-memo">1. 대형버스의 진입 및 주차공간이 협소함.
+2. 계단이 많고 유리난간의 설치는 안전상의 우려가 됨.
+3. 건축적으로는 매력적이나 조금 어렵다는 생각이 듬.
+사전예약: 비즈니스룸 이용시 예약 필요</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rc">
+      <div class="rc-top">
+        <div class="rc-bar arefi-bar"></div>
+        <div class="rc-content">
+          <div class="rc-row1">
+            <span class="rc-name">박경용</span>
+            <span class="rc-ts">2026-05-08 20:31</span>
+            <span class="rc-verdict v-hold">△ 보류</span>
+          </div>
+          <div class="rc-chips">
+            <span class="chip chip-ok">✓ 적합 12</span>
+            <span class="chip chip-warn">⚠ 주의 1</span>
+            <span class="chip chip-empty">○ 미확인 2</span>
+          </div>
+          <div class="check-grid">
+            <div class="cg-item"><span class="cg-icon">⚠️</span><span class="cg-pri pri-must">필수</span>답사 동선 안전</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>화장실·우천 대응</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>정상 영업</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>운영시간 일치</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>단체 수용</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>촬영 허용</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>버스 주차</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-rec">권장</span>루프탑 개방</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-rec">권장</span>외부 관찰 포인트</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-rec">권장</span>학생 눈높이</div>
+            <div class="cg-item"><span class="cg-icon">○</span><span class="cg-pri pri-opt">부가</span>음료·베이커리 가격</div>
+            <div class="cg-item"><span class="cg-icon">○</span><span class="cg-pri pri-opt">부가</span>소품 기념품</div>
+          </div>
+          <div class="rc-memo">주차장은 확보되어 있지만 대형버스가 진출입하기는 어려워보이며, 건축물에 대한 학생들의 안전에 유의해야 할 필요가 있음</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 치타누오바 결과 -->
+<div class="site-section">
+  <div class="site-header">
+    <div class="site-dot" style="background:var(--chita)"></div>
+    <div class="site-title">치타누오바 Cittá Nuova</div>
+    <div class="site-concept">열림</div>
+  </div>
+  <div class="result-cards">
+
+    <div class="rc">
+      <div class="rc-top">
+        <div class="rc-bar chita-bar"></div>
+        <div class="rc-content">
+          <div class="rc-row1">
+            <span class="rc-name">김준섭</span>
+            <span class="rc-ts">2026-05-08 21:48</span>
+            <span class="rc-verdict v-go">✅ 적합</span>
+          </div>
+          <div class="rc-chips">
+            <span class="chip chip-ok">✓ 적합 10</span>
+            <span class="chip chip-warn">⚠ 주의 2</span>
+          </div>
+          <div class="check-grid">
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>답사 동선 안전</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>화장실·우천 대응</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>정상 영업</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>운영시간 일치</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>단체 수용</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>촬영 허용</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-must">필수</span>버스 주차</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-rec">권장</span>혼잡도 적정</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-rec">권장</span>외부 관찰 포인트</div>
+            <div class="cg-item"><span class="cg-icon">✅</span><span class="cg-pri pri-rec">권장</span>학생 눈높이</div>
+            <div class="cg-item"><span class="cg-icon">⚠️</span><span class="cg-pri pri-opt">부가</span>베이커리 포장</div>
+            <div class="cg-item"><span class="cg-icon">⚠️</span><span class="cg-pri pri-opt">부가</span>소품 구매</div>
+          </div>
+          <div class="rc-memo">1. 신리성지의 잔디밭과 주변의 전원적인 풍경이 초중고 학생단체의 답사지로 훌륭함.
+2. 카페로만은 텍스트가 부족하지만 신리성지 전시관과의 연계성을 강조할 필요가 있음.
+3. 8월초 대지주변의 논 풍경이 기대됨.
+사전예약: 불필요</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rc">
+      <div class="rc-top">
+        <div class="rc-bar chita-bar"></div>
+        <div class="rc-content">
+          <div class="rc-row1">
+            <span class="rc-name">박경용</span>
+            <span class="rc-ts">2026-05-08 22:49</span>
+            <span class="rc-verdict v-etc">— 미정</span>
+          </div>
+          <div class="rc-chips">
+            <span class="chip chip-ok">✓ 적합 10</span>
+            <span class="chip chip-empty">○ 미확인 2</span>
+          </div>
+          <div class="rc-memo">창고를 카페로 변경한 점을 제외한 카페에 대한 특별한 점은 없어서 조금 아쉬움
+신리성지라는 좋은 배경이 있어 카페 이외의 눈으로 볼 수 있는 곳은 많음
+학생들 방문 전 성지에 대해서 설명이 필요하지 않을까 고려</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div style="text-align:center;font-size:10px;color:var(--desc);font-family:'IBM Plex Mono',monospace;margin-top:20px">
+  GJAS_사전답사_결과대시보드_v1.0 · 2026.05.08 · ARCHIVIA Architects
+</div>
+
+</main>
 </body>
 </html>
