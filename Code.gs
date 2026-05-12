@@ -149,8 +149,15 @@ function doGet(e) {
         };
       });
     });
+    var json = JSON.stringify({status:'ok', data: result});
+    var cb = e && e.parameter && e.parameter.callback;
+    if (cb) {
+      return ContentService
+        .createTextOutput(cb + '(' + json + ')')
+        .setMimeType(ContentService.MimeType.JAVASCRIPT);
+    }
     return ContentService
-      .createTextOutput(JSON.stringify({status:'ok', data: result}))
+      .createTextOutput(json)
       .setMimeType(ContentService.MimeType.JSON);
   } catch(err) {
     return ContentService
