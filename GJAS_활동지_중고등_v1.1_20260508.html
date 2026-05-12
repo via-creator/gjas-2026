@@ -182,7 +182,7 @@ input,textarea,select{-webkit-user-select:text!important;user-select:text!import
 
 <div id="expired-screen" role="alert">
   <h2>⏰ 접근 기간 만료</h2>
-  <p>이 활동지는 <strong style="color:#FFD87A">2026년 5월 15일</strong>에만 사용 가능합니다.<br><br>문의: via@archivia.kr</p>
+  <p>이 활동지는 <strong style="color:#FFD87A">2026년 5월 15일</strong>까지에만 사용 가능합니다.<br><br>문의: via@archivia.kr</p>
   <div class="exp-badge">ARCHIVIA Architects · 공주건축학교 운영위원회</div>
 </div>
 
@@ -1115,7 +1115,7 @@ function getLocalDate(){
   const d = new Date();
   return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 }
-const IS_VALID = (getLocalDate() === VALID_DATE);
+const IS_VALID = (getLocalDate() <= VALID_DATE);
 
 // ── Tab ──
 function showTab(id){
