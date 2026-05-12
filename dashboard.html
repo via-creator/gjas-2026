@@ -112,7 +112,7 @@ main{max-width:960px;margin:0 auto;padding:20px 16px 60px}
 </main>
 
 <script>
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbwYbeHqRdtS_pSpT2E5B886bsOU_Hxd9pb21ZZDzwA556OdFbdHG7edzeltMnuCagsg/exec';
+const GAS_URL = '/api/data';
 
 const SITES = {
   mona:  {name:'모나밸리 MONAVALLEY', concept:'품음', cls:'mona', color:'#2E5894'},
@@ -127,41 +127,19 @@ function verdictLabel(v){
   return {icon:'— 미판정', cls:'verdict-none'};
 }
 
-function loadData(){
+async function loadData(){
   document.getElementById('loading').style.display='block';
   document.getElementById('dashboard').style.display='none';
   document.getElementById('error-state').style.display='none';
-
-  // 기존 JSONP 스크립트 제거
-  var old = document.getElementById('jsonp-script');
-  if(old) old.remove();
-
-  // 타임아웃
-  window._jsonpTimer = setTimeout(function(){
+  try {
+    const res  = await fetch(GAS_URL + '?t=' + Date.now());
+    const json = await res.json();
+    if(json.status !== 'ok') throw new Error(json.message);
+    render(json.data);
+  } catch(e) {
     document.getElementById('loading').style.display='none';
     document.getElementById('error-state').style.display='block';
-  }, 10000);
-
-  // JSONP 요청
-  window._gasCallback = function(json){
-    clearTimeout(window._jsonpTimer);
-    if(json.status === 'ok'){
-      render(json.data);
-    } else {
-      document.getElementById('loading').style.display='none';
-      document.getElementById('error-state').style.display='block';
-    }
-  };
-
-  var s = document.createElement('script');
-  s.id = 'jsonp-script';
-  s.src = GAS_URL + '?callback=_gasCallback&t=' + Date.now();
-  s.onerror = function(){
-    clearTimeout(window._jsonpTimer);
-    document.getElementById('loading').style.display='none';
-    document.getElementById('error-state').style.display='block';
-  };
-  document.body.appendChild(s);
+  }
 }
 
 function render(data){
