@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GJAS 2026 — 사전답사 결과 대시보드</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --mona:#2E5894;--mona-l:#D6E0EE;
+  --arefi:#6A5D7B;--arefi-l:#E6E1ED;
+  --chita:#004D40;--chita-l:#D5E8E4;
+  --ink:#1A1A1A;--desc:#5A6068;--icy:#F2F4F7;--dark:#1A2830;
+}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--icy);color:var(--ink);min-height:100vh}
+
+/* Header */
+.app-header{background:var(--dark);padding:16px 20px;position:sticky;top:0;z-index:100}
+.header-inner{display:flex;align-items:center;justify-content:space-between;max-width:960px;margin:0 auto}
+.header-label{font-size:9.5px;letter-spacing:2px;color:rgba(255,255,255,.4);margin-bottom:3px}
+.header-title{font-size:16px;font-weight:700;color:white}
+.refresh-btn{padding:7px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.7);font-family:inherit;font-size:12px;cursor:pointer;transition:all .2s}
+.refresh-btn:hover{background:rgba(255,255,255,.1)}
+
+/* Main */
+main{max-width:960px;margin:0 auto;padding:20px 16px 60px}
+
+/* Loading */
+.loading{text-align:center;padding:60px;color:var(--desc)}
+.spinner{width:36px;height:36px;border:3px solid #E0DCD6;border-top-color:var(--mona);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Summary Bar */
+.summary-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+.sum-card{background:white;border-radius:12px;padding:16px;border-left:4px solid;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.sum-card.mona{border-left-color:var(--mona)}
+.sum-card.arefi{border-left-color:var(--arefi)}
+.sum-card.chita{border-left-color:var(--chita)}
+.sum-site{font-size:10px;font-family:'IBM Plex Mono',monospace;letter-spacing:1px;color:var(--desc);margin-bottom:4px}
+.sum-name{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:10px}
+.sum-verdict{font-size:22px;font-weight:700;margin-bottom:4px}
+.sum-count{font-size:11px;color:var(--desc)}
+.verdict-ok{color:#004D40}
+.verdict-hold{color:#B45309}
+.verdict-no{color:#9B2335}
+.verdict-none{color:#A0A5AB}
+
+/* Pass Rate */
+.pass-bar-wrap{margin-top:10px}
+.pass-label{display:flex;justify-content:space-between;font-size:10px;color:var(--desc);margin-bottom:4px}
+.pass-bar{height:6px;background:#E0DCD6;border-radius:3px;overflow:hidden}
+.pass-fill{height:100%;border-radius:3px;transition:width .6s}
+
+/* Section */
+.section-title{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--desc);margin-bottom:12px;padding-top:8px}
+
+/* Result Cards */
+.result-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:28px}
+.result-card{background:white;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:hidden}
+.rc-header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--icy)}
+.rc-name{font-weight:700;font-size:14px}
+.rc-time{font-size:10px;color:var(--desc);font-family:'IBM Plex Mono',monospace}
+.rc-verdict{font-size:18px;font-weight:700;padding:10px 14px}
+.rc-body{padding:0 14px 12px}
+.check-summary{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.cs-chip{font-size:11px;padding:3px 8px;border-radius:6px;font-weight:600}
+.cs-ok{background:#D5E8E4;color:#004D40}
+.cs-warn{background:#F0E4E6;color:#9B2335}
+.cs-empty{background:#F0EDE8;color:#A0A5AB}
+.rc-memo{font-size:12px;color:var(--desc);line-height:1.6;border-top:1px solid var(--icy);padding-top:8px;margin-top:4px}
+
+/* Fail Items */
+.fail-section{background:white;border-radius:12px;padding:16px;margin-bottom:24px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.fail-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--icy);font-size:12px}
+.fail-item:last-child{border-bottom:none}
+.fail-site{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;flex-shrink:0}
+.fail-label{color:var(--ink);line-height:1.5}
+.fail-tag{font-size:10px;font-weight:700;color:#9B2335;flex-shrink:0}
+
+/* Empty */
+.empty-state{text-align:center;padding:40px;color:var(--desc);font-size:13px}
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">GJAS 2026 · 사전답사</div>
+      <div class="header-title">📊 결과 대시보드</div>
+    </div>
+    <button class="refresh-btn" onclick="loadData()">↻ 새로고침</button>
+  </div>
+</header>
+
+<main>
+  <div id="loading" class="loading">
+    <div class="spinner"></div>
+    <div>결과 불러오는 중...</div>
+  </div>
+  <div id="dashboard" style="display:none">
+    <div class="summary-bar" id="summary-bar"></div>
+    <div class="section-title">주의·미통과 항목 (필수)</div>
+    <div class="fail-section" id="fail-list"></div>
+    <div class="section-title">장소별 제출 결과</div>
+    <div class="result-grid" id="result-grid"></div>
+  </div>
+  <div id="error-state" style="display:none" class="empty-state">
+    데이터를 불러올 수 없습니다.<br>잠시 후 새로고침 해주세요.
+  </div>
+</main>
+
+<script>
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbwYbeHqRdtS_pSpT2E5B886bsOU_Hxd9pb21ZZDzwA556OdFbdHG7edzeltMnuCagsg/exec';
+
+const SITES = {
+  mona:  {name:'모나밸리 MONAVALLEY', concept:'품음', cls:'mona', color:'#2E5894'},
+  arefi: {name:'아레피 ALEFFEE',       concept:'오름', cls:'arefi', color:'#6A5D7B'},
+  citta: {name:'치타누오바 Cittá Nuova',concept:'열림', cls:'chita', color:'#004D40'},
+};
+
+function verdictLabel(v){
+  if(v==='ok')   return {icon:'✅ 적합',   cls:'verdict-ok'};
+  if(v==='hold') return {icon:'△ 보류',   cls:'verdict-hold'};
+  if(v==='no')   return {icon:'✕ 부적합', cls:'verdict-no'};
+  return {icon:'— 미판정', cls:'verdict-none'};
+}
+
+async function loadData(){
+  document.getElementById('loading').style.display='block';
+  document.getElementById('dashboard').style.display='none';
+  document.getElementById('error-state').style.display='none';
+
+  try {
+    const res  = await fetch(GAS_URL + '?t=' + Date.now());
+    const json = await res.json();
+    if(json.status !== 'ok') throw new Error(json.message);
+    render(json.data);
+  } catch(e) {
+    document.getElementById('loading').style.display='none';
+    document.getElementById('error-state').style.display='block';
+    console.error(e);
+  }
+}
+
+function render(data){
+  document.getElementById('loading').style.display='none';
+  document.getElementById('dashboard').style.display='block';
+
+  // ── 요약 바 ──
+  let summaryHtml = '';
+  Object.entries(SITES).forEach(([id, info]) => {
+    const rows = data[id] || [];
+    const last = rows[rows.length-1];
+    const vd   = last ? verdictLabel(last.verdict) : verdictLabel('');
+    const mustOk  = last ? last.mustPass : '-';
+    const recOk   = last ? last.recPass  : '-';
+
+    // 필수 통과율
+    let mustTotal=0, mustPass=0;
+    if(last && last.checks){
+      last.checks.forEach(c=>{
+        if(c.priority==='must'){mustTotal++;if(c.state==='ok')mustPass++;}
+      });
+    }
+    const rate = mustTotal>0 ? Math.round(mustPass/mustTotal*100) : null;
+
+    summaryHtml += `
+    <div class="sum-card ${info.cls}">
+      <div class="sum-site">${info.concept} · STOP</div>
+      <div class="sum-name">${info.name}</div>
+      <div class="sum-verdict ${vd.cls}">${vd.icon}</div>
+      <div class="sum-count">제출 ${rows.length}건${last?` · 최근: ${last.name}`:''}  </div>
+      ${rate!==null?`
+      <div class="pass-bar-wrap">
+        <div class="pass-label"><span>필수 통과율</span><span>${mustPass}/${mustTotal}</span></div>
+        <div class="pass-bar"><div class="pass-fill" style="width:${rate}%;background:${info.color}"></div></div>
+      </div>`:''}
+    </div>`;
+  });
+  document.getElementById('summary-bar').innerHTML = summaryHtml;
+
+  // ── 주의·미통과 필수 항목 ──
+  let failHtml = '';
+  Object.entries(SITES).forEach(([id, info]) => {
+    const rows = data[id] || [];
+    const last = rows[rows.length-1];
+    if(!last || !last.checks) return;
+    last.checks.forEach(c => {
+      if(c.priority==='must' && c.state!=='ok'){
+        failHtml += `
+        <div class="fail-item">
+          <span class="fail-site" style="background:${info.color}22;color:${info.color}">${info.concept}</span>
+          <span class="fail-label">${c.label||''}</span>
+          <span class="fail-tag">${c.state==='warn'?'⚠ 주의':'○ 미확인'}</span>
+        </div>`;
+      }
+    });
+  });
+  document.getElementById('fail-list').innerHTML = failHtml ||
+    '<div class="empty-state" style="padding:16px">필수 미통과 항목 없음 ✅</div>';
+
+  // ── 장소별 결과 카드 ──
+  let gridHtml = '';
+  Object.entries(SITES).forEach(([id, info]) => {
+    const rows = data[id] || [];
+    if(rows.length===0){
+      gridHtml += `<div class="result-card">
+        <div class="rc-header" style="border-left:4px solid ${info.color}">
+          <span class="rc-name">${info.name}</span>
+        </div>
+        <div class="empty-state" style="padding:20px">미제출</div>
+      </div>`;
+      return;
+    }
+    rows.forEach(row => {
+      const vd = verdictLabel(row.verdict);
+      let okCount=0, warnCount=0, emptyCount=0;
+      (row.checks||[]).forEach(c=>{
+        if(c.state==='ok') okCount++;
+        else if(c.state==='warn') warnCount++;
+        else emptyCount++;
+      });
+      const ts = row.ts ? String(row.ts).substring(0,16) : '';
+      gridHtml += `
+      <div class="result-card">
+        <div class="rc-header" style="border-left:4px solid ${info.color}">
+          <span class="rc-name">${row.name||'익명'}</span>
+          <span class="rc-time">${ts}</span>
+        </div>
+        <div class="rc-verdict ${vd.cls}">${vd.icon}</div>
+        <div class="rc-body">
+          <div class="check-summary">
+            <span class="cs-chip cs-ok">✓ 적합 ${okCount}</span>
+            ${warnCount>0?`<span class="cs-chip cs-warn">⚠ 주의 ${warnCount}</span>`:''}
+            ${emptyCount>0?`<span class="cs-chip cs-empty">○ 미확인 ${emptyCount}</span>`:''}
+          </div>
+          ${row.verdictMemo?`<div class="rc-memo">${row.verdictMemo}</div>`:''}
+        </div>
+      </div>`;
+    });
+  });
+  document.getElementById('result-grid').innerHTML = gridHtml;
+}
+
+// 자동 로드
+loadData();
+// 3분마다 자동 새로고침
+setInterval(loadData, 180000);
+</script>
+</body>
+</html>

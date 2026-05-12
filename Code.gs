@@ -124,3 +124,37 @@ function buildResultHtml(d, ts) {
 function doGet(e) {
   return ContentService.createTextOutput('GJAS GAS OK').setMimeType(ContentService.MimeType.TEXT);
 }
+
+function doGet(e) {
+  try {
+    var ss = SpreadsheetApp.openById(SHEET_ID);
+    var sites = ['mona','arefi','citta'];
+    var result = {};
+    sites.forEach(function(site){
+      var sheet = ss.getSheetByName(site);
+      if (!sheet || sheet.getLastRow() < 2) { result[site] = []; return; }
+      var rows = sheet.getRange(2, 1, sheet.getLastRow()-1, sheet.getLastColumn()).getValues();
+      result[site] = rows.map(function(r){
+        var full = {};
+        try { full = JSON.parse(r[10]||'{}'); } catch(e){}
+        return {
+          ts:          r[0],
+          name:        r[1],
+          date:        r[2],
+          mustPass:    r[6],
+          recPass:     r[7],
+          verdict:     r[8],
+          verdictMemo: r[9],
+          checks:      full.checks || []
+        };
+      });
+    });
+    return ContentService
+      .createTextOutput(JSON.stringify({status:'ok', data: result}))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({status:'error', message: err.toString()}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
